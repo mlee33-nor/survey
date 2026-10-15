@@ -51,6 +51,8 @@ function clean(b) {
   if (!(like >= 1 && like <= 100) || !(kisses >= 0 && kisses <= 9999)) return null;
   const row = { like, likeLevel: LIKELVL(b.likeLevel), sweetness, moreDates: YN(b.moreDates), singing: YN(b.singing), disturbing: YN(b.disturbing), backrooms: YN(b.backrooms), heartopia: YN(b.heartopia), howLong: LONG(b.howLong), hair: SAT(b.hair), boyfriend: BF(b.boyfriend), nuts: SAT(b.nuts), violence: VIOL(b.violence), adore: ONE_OF(['Yes','.. ok'])(b.adore), kisses };
   if (Object.values(row).some(v => v === null)) return null;
+  row.why = String(b.why || '').slice(0, 1000);
+  row.sweetest = String(b.sweetest || '').slice(0, 1000);
   row.at = new Date().toISOString();
   return row;
 }
@@ -74,6 +76,8 @@ function resultsPage(rows) {
     <div><span>These nuts</span><b>${esc(r.nuts)}</b></div>
     <div><span>Violence rate</span><b>${esc(r.violence)}</b></div>
     <div><span>Adores him?</span><b>${esc(r.adore)}</b></div>
+    <div><span>Why she likes you</span><b>${esc(r.why || '—')}</b></div>
+    <div><span>Sweetest thing you've done</span><b>${esc(r.sweetest || '—')}</b></div>
     <div><span>Kisses on sight</span><b>${esc(r.kisses)}</b></div></div>`;
   return `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Myles Survey Results</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@800&family=Nunito:wght@600;800&display=swap">

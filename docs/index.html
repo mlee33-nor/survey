@@ -104,6 +104,8 @@ button.player:hover .bigplay{transform:scale(1.1)}
 @keyframes nudge{0%,100%{transform:rotate(-4deg) translate(0,0)}50%{transform:rotate(-4deg) translate(6px,0)}}
 @media (min-width:1120px){.dock{position:absolute;left:calc(100% + 24px);top:34px;margin:0}}
 @media (max-width:480px){.player{width:180px}.hitit span{font-size:18px}.hitit svg{width:56px;height:38px}}
+.q[data-key="moreDates"]{position:relative}
+.q[data-key="moreDates"] .choice[data-v="No"]{transition:transform .25s cubic-bezier(.3,1.4,.5,1);position:relative;z-index:1}
 .choice[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent);transform:scale(1.02)}
 
 /* kisses */
@@ -182,6 +184,46 @@ html.theming, html.theming *, html.theming *::before, html.theming *::after{
   font-family:var(--display);font-weight:800;font-size:clamp(22px,6.6vw,72px);color:var(--on-accent);background:var(--accent);padding:10px 18px;border-radius:18px;
   box-shadow:0 20px 50px -16px var(--accent)}
 .ks-close{position:absolute;left:50%;bottom:calc(40px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:3;font-size:17px;padding:14px 22px}
+/* fill-ins */
+textarea.fill{font:inherit;font-weight:600;font-size:16px;color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:16px;padding:12px 14px;resize:vertical;width:100%}
+textarea.fill:focus{outline:3px solid var(--accent-2);outline-offset:1px}
+.words{display:flex;flex-direction:column;gap:10px}
+.words h3{margin:0;font-family:var(--display);font-weight:800;font-size:26px}
+.words blockquote{margin:0;background:var(--card);border:1.5px solid var(--accent-2);border-radius:20px;padding:16px 18px;display:flex;flex-direction:column;gap:6px}
+.words p{margin:0;font-family:var(--display);font-weight:700;font-size:20px;line-height:1.35;overflow-wrap:anywhere;white-space:pre-wrap}
+/* are you sure */
+.sure{position:fixed;inset:0;z-index:70;display:grid;place-items:center;padding:16px;background:color-mix(in srgb, var(--ink) 45%, transparent)}
+.sure-card{background:var(--card);border-radius:24px;padding:24px;max-width:340px;width:100%;display:flex;flex-direction:column;gap:16px;align-items:center;text-align:center;
+  box-shadow:0 30px 60px -20px rgba(0,0,0,.5)}
+.sure-card h3{margin:0;font-family:var(--display);font-weight:800;font-size:26px;text-wrap:balance}
+.sure-btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.sure-btns .submit{font-size:16px;padding:12px 20px}
+.cry{position:relative;width:180px}
+.cry img{width:100%;border-radius:14px;display:block;filter:saturate(.7) brightness(.95)}
+.cry span{position:absolute;right:-14px;bottom:-14px;font-size:56px;animation:pump .9s ease-in-out infinite}
+/* backrooms */
+.level0{position:fixed;inset:0;z-index:80;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;pointer-events:none;
+  background:repeating-linear-gradient(90deg, rgba(120,100,40,.2) 0 2px, transparent 2px 46px), radial-gradient(circle at 50% 0, #f3e8a8, #c8b46a 70%);color:#3b3214;
+  font-family:var(--display);animation:flicker .18s steps(2) infinite}
+.level0 span{font-weight:800;font-size:clamp(44px,14vw,110px);letter-spacing:.08em}
+.level0 small{font-weight:700;font-size:16px;letter-spacing:.3em;text-transform:uppercase;opacity:.75}
+@keyframes flicker{0%{filter:brightness(1)}50%{filter:brightness(1.18)}100%{filter:brightness(.82)}}
+/* broken heart at 1 */
+.heart .half{position:absolute;inset:0;opacity:0}
+.heart.broken svg:not(.half){clip-path:polygon(0 0,50% 0,44% 25%,56% 45%,44% 65%,54% 85%,50% 100%,0 100%);transform:translate(-7px,4px) rotate(-14deg);transition:transform .4s}
+.heart.broken .half{opacity:1;clip-path:polygon(50% 0,100% 0,100% 100%,50% 100%,54% 85%,44% 65%,56% 45%,44% 25%);transform:translate(7px,6px) rotate(14deg);transition:transform .4s}
+.heart.broken{animation:quake .25s linear 3}
+.heart.broken .num{opacity:.9}
+/* analyzing */
+.analyze{display:flex;flex-direction:column;gap:16px;padding-top:20px}
+.abar{height:14px;border-radius:99px;background:var(--line);overflow:hidden}
+.abar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent-2),var(--accent));transition:width .6s ease}
+.analyze ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.analyze li{font-weight:700;font-size:17px;color:var(--muted);display:flex;gap:10px;align-items:center}
+.analyze li.ok{color:var(--ink)}
+.analyze .spin{display:inline-block;width:20px;color:var(--accent);font-weight:800;animation:spin 1s linear infinite}
+.analyze li.ok .spin{animation:none}
+@keyframes spin{to{transform:rotate(360deg)}}
 /* drifting background circles */
 .blobs{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
 .blobs i{position:absolute;border-radius:50%;background:var(--soft);opacity:.9}
@@ -278,7 +320,7 @@ main.wrap{position:relative;z-index:1}
   <header>
     <span class="tag">Official · Confidential · Very serious</span>
     <h1>The <em>Myles</em> Survey</h1>
-    <p class="sub">Fifteen questions. Answer honestly. He will see this.</p>
+    <p class="sub">Seventeen questions. Answer honestly. He will see this.</p>
     <aside class="dock" aria-label="Our song">
       <div class="hitit" id="hitit" aria-hidden="true">
         <span>PLAY OUR SONG</span>
@@ -293,7 +335,7 @@ main.wrap{position:relative;z-index:1}
   <section class="q" id="q1">
     <div class="qhead"><span class="qn">01</span><h2 class="qt">How much do you like Myles?</h2></div>
     <div class="score">
-      <div class="heart" id="heart"><span class="drip d1"></span><span class="drip d2"></span><span class="drip d3"></span><span class="puddle"></span>
+      <div class="heart" id="heart"><svg class="half" viewBox="0 0 100 92" aria-hidden="true"><path fill="var(--accent)" d="M50 90C22 70 2 52 2 29 2 13 14 2 28 2c10 0 18 5 22 13C54 7 62 2 72 2c14 0 26 11 26 27 0 23-20 41-48 61z"/></svg><span class="drip d1"></span><span class="drip d2"></span><span class="drip d3"></span><span class="puddle"></span>
         <svg viewBox="0 0 100 92" aria-hidden="true"><path fill="var(--accent)" d="M50 90C22 70 2 52 2 29 2 13 14 2 28 2c10 0 18 5 22 13C54 7 62 2 72 2c14 0 26 11 26 27 0 23-20 41-48 61z"/></svg>
         <span class="num" id="scoreNum">50</span>
       </div>
@@ -387,8 +429,18 @@ main.wrap{position:relative;z-index:1}
     <div class="choices"><button class="choice" data-v="Yes" aria-pressed="false">Yes 🥹</button><button class="choice" data-v=".. ok" aria-pressed="false">.. ok</button></div>
   </section>
 
+  <section class="q" data-text="why">
+    <div class="qhead"><span class="qn">15</span><h2 class="qt">Why do you like your boyfriend?</h2></div>
+    <textarea class="fill" id="why" rows="3" maxlength="1000" placeholder="Be honest. Be sweet. (optional)"></textarea>
+  </section>
+
+  <section class="q" data-text="sweetest">
+    <div class="qhead"><span class="qn">16</span><h2 class="qt">What's the sweetest thing he's done for you?!</h2></div>
+    <textarea class="fill" id="sweetest" rows="3" maxlength="1000" placeholder="Spill it 🥹 (optional)"></textarea>
+  </section>
+
   <section class="q" id="q6">
-    <div class="qhead"><span class="qn">15</span><h2 class="qt">If you saw him walking, how many kisses would you give him?</h2></div>
+    <div class="qhead"><span class="qn">17</span><h2 class="qt">If you saw him walking, how many kisses would you give him?</h2></div>
     <div class="kiss">
       <button class="step" id="minus" aria-label="One fewer kiss">−</button>
       <input type="number" id="kisses" min="0" max="9999" placeholder="?" aria-label="Number of kisses">
@@ -405,7 +457,7 @@ main.wrap{position:relative;z-index:1}
 </div></div>
 
 <script>
-const A = { like: 50, likeLevel:null, sweetness:null, moreDates:null, singing:null, disturbing:null, backrooms:null, heartopia:null, howLong:null, hair:null, boyfriend:null, nuts:null, violence:null, adore:null, kisses:null };
+const A = { like: 50, likeLevel:null, sweetness:null, moreDates:null, singing:null, disturbing:null, backrooms:null, heartopia:null, howLong:null, hair:null, boyfriend:null, nuts:null, violence:null, adore:null, why:"", sweetest:"", kisses:null };
 let touchedLike = false;
 const $ = s => document.querySelector(s);
 const quips = [[1,"Ouch. Okay."],[20,"Room to grow."],[40,"Hmm. Neutral. Suspicious."],[60,"Ooh, a fan."],[80,"Big fan behavior."],[95,"Obsessed. Noted."],[100,"Maximum love unlocked 💖"]];
@@ -418,6 +470,7 @@ function setLike(v, src){
   const h = $('#heart'); h.classList.remove('pop'); void h.offsetWidth; h.classList.add('pop');
   h.style.transform = `scale(${0.85 + v/100*0.3})`;
   h.classList.toggle('max', v === 100);
+  h.classList.toggle('broken', v === 1);
   let q = quips[0][1]; for (const [t, s] of quips) if (v >= t) q = s;
   $('#quip').textContent = q;
   $('#q1').classList.add('done'); update();
@@ -483,6 +536,8 @@ document.querySelectorAll('.q[data-key]').forEach(sec => {
   sec.querySelectorAll('.choice').forEach(b => b.addEventListener('click', () => {
     sec.querySelectorAll('.choice').forEach(x => x.setAttribute('aria-pressed', x === b));
     A[sec.dataset.key] = b.dataset.v; sec.classList.add('done'); update();
+    if (sec.dataset.key === 'likeLevel' && b.dataset.v === 'Not much') areYouSure(() => clearChoice('likeLevel'));
+    if (sec.dataset.key === 'backrooms' && b.dataset.v === 'Yes') backrooms();
   }));
 });
 
@@ -494,8 +549,75 @@ function setKiss(v){
   $('#q6').classList.add('done'); update();
 }
 $('#kisses').addEventListener('input', e => setKiss(e.target.value));
+const zeroKiss = () => { if (A.kisses === 0) areYouSure(() => { setKiss(''); $('#kisses').value = ''; }); };
+$('#kisses').addEventListener('change', zeroKiss);
 $('#plus').addEventListener('click', () => setKiss((A.kisses ?? 0) + 1));
-$('#minus').addEventListener('click', () => setKiss(Math.max(0, (A.kisses ?? 1) - 1)));
+$('#minus').addEventListener('click', () => { const was = A.kisses; setKiss(Math.max(0, (A.kisses ?? 1) - 1)); if (was !== 0) zeroKiss(); });
+
+['why','sweetest'].forEach(id => $('#' + id).addEventListener('input', e => {
+  A[id] = e.target.value.trim(); e.target.closest('.q').classList.toggle('done', !!A[id]);
+}));
+
+function clearChoice(key){
+  const sec = document.querySelector(`.q[data-key="${key}"]`);
+  sec.querySelectorAll('.choice').forEach(x => x.setAttribute('aria-pressed', 'false'));
+  A[key] = null; sec.classList.remove('done'); update();
+}
+let chainOpen = false;
+function areYouSure(onChange){
+  if (chainOpen) return; chainOpen = true;
+  const steps = [
+    { t:'Are you sure? 🤨', keep:'Yes', change:'No, change it' },
+    { t:'like… SURE sure? 😟', keep:'Yes I\'m sure', change:'Okay wait' },
+    { t:'He\'s crying now. Happy? 😭', img:true, keep:'Keep my answer', change:'Fine, I\'ll change it' }
+  ];
+  const m = document.createElement('div'); m.className = 'sure'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'true');
+  document.body.appendChild(m);
+  const done = changed => { m.remove(); chainOpen = false; if (changed) onChange(); };
+  const show = i => {
+    const st = steps[i];
+    m.innerHTML = `<div class="sure-card">${st.img ? '<div class="cry"><img src="img/s2.jpg" alt="Myles, now crying"><span>😭</span></div>' : ''}
+      <h3>${st.t}</h3><div class="sure-btns"><button class="ghost" id="sKeep">${st.keep}</button><button class="submit" id="sChange">${st.change}</button></div></div>`;
+    if (!reduceMotion) m.querySelector('.sure-card').animate([{transform:'scale(.8) rotate(-3deg)', opacity:0},{transform:'none', opacity:1}], {duration:280, easing:'cubic-bezier(.2,.9,.3,1.3)'});
+    m.querySelector('#sChange').focus();
+    m.querySelector('#sKeep').onclick = () => i < steps.length - 1 ? show(i + 1) : done(false);
+    m.querySelector('#sChange').onclick = () => done(true);
+  };
+  show(0);
+}
+
+(function(){
+  const sec = document.querySelector('.q[data-key="moreDates"]'), no = sec.querySelector('.choice[data-v="No"]');
+  let dodges = 0;
+  const flee = e => {
+    if (dodges >= 7) return;
+    e.preventDefault(); e.stopPropagation();
+    dodges++;
+    const box = sec.getBoundingClientRect(), b = no.getBoundingClientRect();
+    const maxX = box.width - b.width - 24, maxY = box.height - b.height - 16;
+    no._x = Math.max(-(no.offsetLeft - 12), Math.min(maxX - no.offsetLeft + 12, rnd(-no.offsetLeft + 12, maxX - no.offsetLeft)));
+    no._y = Math.max(-(no.offsetTop - 12), Math.min(maxY - no.offsetTop, rnd(-no.offsetTop + 12, maxY - no.offsetTop)));
+    no.style.transform = `translate(${no._x}px, ${no._y}px) rotate(${rnd(-12,12)}deg)`;
+    const taunts = ['nope', 'try again', 'too slow 😜', 'nuh uh', 'not happening', 'pick yes', 'okay fine…'];
+    no.textContent = taunts[dodges - 1];
+    if (dodges >= 7) setTimeout(() => { no.style.transform = ''; no.textContent = 'fine… No 😔'; }, 600);
+  };
+  no.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') flee(e); });
+  no.addEventListener('pointerdown', flee);
+  no.addEventListener('click', e => { if (dodges < 7) { e.preventDefault(); e.stopImmediatePropagation(); } }, true);
+})();
+
+function backrooms(){
+  const o = document.createElement('div'); o.className = 'level0'; o.innerHTML = '<span>LEVEL 0</span><small>you are not alone</small>';
+  document.body.appendChild(o);
+  try {
+    const ac = new (window.AudioContext || window.webkitAudioContext)();
+    const g = ac.createGain(); g.gain.value = .06; g.connect(ac.destination);
+    [60, 120, 180].forEach(f => { const os = ac.createOscillator(); os.type = 'sawtooth'; os.frequency.value = f; os.connect(g); os.start(); os.stop(ac.currentTime + 2); });
+    setTimeout(() => ac.close(), 2300);
+  } catch (e) {}
+  setTimeout(() => o.remove(), reduceMotion ? 1200 : 2000);
+}
 
 function update(){
   const req = [touchedLike, A.likeLevel, A.sweetness, A.moreDates, A.disturbing, A.singing, A.backrooms, A.heartopia, A.howLong, A.hair, A.boyfriend, A.nuts, A.violence, A.adore, A.kisses !== null];
@@ -507,7 +629,7 @@ function update(){
 }
 
 const labels = [["like","How much she likes Myles", v => v + " / 100"],["likeLevel","How much she likes him"],["sweetness","Sweetness", v => v + " / 10"],["moreDates","More dates?"],["disturbing","Thinks he's disturbing?"],
-  ["singing","Is his singing annoying?"],["backrooms","Escape the Backrooms together?"],["heartopia","Heartopia duo?"],["howLong","How long she wants to date him"],["hair","Playing with his hair"],["boyfriend","His boyfriend behavior"],["nuts","These nuts"],["violence","Violence rate"],["adore","Adores him?"],["kisses","Kisses on sight", v => v]];
+  ["singing","Is his singing annoying?"],["backrooms","Escape the Backrooms together?"],["heartopia","Heartopia duo?"],["howLong","How long she wants to date him"],["hair","Playing with his hair"],["boyfriend","His boyfriend behavior"],["nuts","These nuts"],["violence","Violence rate"],["adore","Adores him?"],["why","Why she likes him", v => v || "—"],["sweetest","Sweetest thing he's done", v => v || "—"],["kisses","Kisses on sight", v => v]];
 function receipt(r){
   return '<div class="receipt">' + labels.map(([k, l, f]) => `<div><span>${l}</span><b>${esc(f ? f(r[k]) : r[k])}</b></div>`).join('') + '</div>';
 }
@@ -633,6 +755,11 @@ function report(r, saved){
       <section class="tile wide"><span class="lbl">These nuts 🥜</span><strong>${esc(r.nuts)}</strong>${meter(r.nuts, ['Unsatisfied','Satisfied','Very satisfied'])}</section>
     </div>
 
+    ${(r.why || r.sweetest) ? `<section class="words"><h3>In her words</h3>
+      ${r.why ? `<blockquote><span class="lbl">Why she likes you</span><p>“${esc(r.why)}”</p></blockquote>` : ''}
+      ${r.sweetest ? `<blockquote><span class="lbl">The sweetest thing you've done</span><p>“${esc(r.sweetest)}”</p></blockquote>` : ''}
+    </section>` : ''}
+
     <section class="memories">
       <h3>Our favorite moments</h3>
       <div class="strip">${PHOTOS.map(([src, cap], i) => `<figure class="mem" style="--t:${i % 2 ? 3 : -3}deg"><img src="${src}" alt="${esc(cap)}" loading="lazy"></figure>`).join('')}</div>
@@ -682,7 +809,16 @@ $('#submit').addEventListener('click', async () => {
   await new Promise(res => setTimeout(res, reduceMotion ? 0 : 900));
   $('#bar').hidden = true;
   window.scrollTo({ top: 0 });
-  $('#app').innerHTML = `<div class="report"><span class="tag">Calculating…</span><h2 class="rep-title">Tallying the results 💌</h2></div>`;
+  const stepsTxt = ['Consulting the Heartopia council…','Measuring nut satisfaction…','Calculating kiss velocity…','Escaping the Backrooms…','Cross-checking sweetness levels…','Finalizing the verdict…'];
+  $('#app').innerHTML = `<div class="analyze"><span class="tag">Please wait</span><h2 class="rep-title">Analyzing your answers</h2>
+    <div class="abar"><i id="abar"></i></div><ul id="asteps"></ul></div>`;
+  for (let i = 0; i < stepsTxt.length; i++) {
+    const li = document.createElement('li'); li.innerHTML = `<span class="spin">◌</span> ${stepsTxt[i]}`; $('#asteps').appendChild(li);
+    $('#abar').style.width = ((i + 1) / stepsTxt.length * 100) + '%';
+    await new Promise(res => setTimeout(res, reduceMotion ? 150 : 650));
+    li.classList.add('ok'); li.querySelector('.spin').textContent = '✓';
+  }
+  await new Promise(res => setTimeout(res, reduceMotion ? 0 : 400));
   $('#app').innerHTML = `<div class="letter-wrap">
     <section class="letter">
       <span class="tag">A note for you</span>
