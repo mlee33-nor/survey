@@ -239,16 +239,46 @@ $('#submit').addEventListener('click', async () => {
   const btn = $('#submit'); btn.disabled = true; btn.textContent = 'Sending…';
   const row = { ...A, at: new Date().toISOString() };
   let saved = false;
+  // Email the answers to Myles through FormSubmit (works on GitHub Pages).
   try {
-    const r = await fetch('/api/responses', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(row) });
-    saved = r.ok;
+    const r = await fetch('https://formsubmit.co/ajax/mylesn760@gmail.com', {
+      method:'POST', headers:{'Content-Type':'application/json', 'Accept':'application/json'},
+      body: JSON.stringify({
+        _subject: '💌 New Myles Survey answers',
+        _template: 'table',
+        _captcha: 'false',
+        'How much she likes Myles': row.like + ' / 100',
+        'More dates?': row.moreDates,
+        "Thinks he's disturbing?": row.disturbing,
+        'Escape the Backrooms together?': row.backrooms,
+        'Heartopia duo?': row.heartopia,
+        'Kisses on sight': row.kisses,
+        'Submitted': new Date(row.at).toLocaleString()
+      })
+    });
+    const j = await r.json().catch(() => ({}));
+    saved = r.ok && String(j.success) === 'true';
   } catch (e) {}
-  if (!saved) { btn.disabled = false; btn.textContent = 'Try again 💌';
-    if (!$('#err')) { const p = document.createElement('p'); p.id='err'; p.className='err'; p.textContent='That didn’t send. Check your connection and tap again.'; $('#app').appendChild(p); }
-    return; }
+  // On Railway, also save to the server's results page.
+  if (!location.hostname.endsWith('github.io')) {
+    try {
+      const r = await fetch('/api/responses', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(row) });
+      saved = r.ok || saved;
+    } catch (e) {}
+  }
   $('#bar').hidden = true;
-  $('#app').innerHTML = `<div class="thanks"><span class="tag">Delivered</span><h2>Thank you 💌</h2>
-    <p class="note">Your answers went straight to Myles. Here's what you said:</p>${receipt(row)}</div>`;
+  const text = '💌 My Myles Survey answers\n' + labels.map(([k,l,f]) => `${l}: ${f ? f(row[k]) : row[k]}`).join('\n');
+  $('#app').innerHTML = saved
+    ? `<div class="thanks"><span class="tag">Delivered</span><h2>Thank you 💌</h2>
+       <p class="note">Your answers went straight to Myles. Here's what you said:</p>${receipt(row)}</div>`
+    : `<div class="thanks"><span class="tag">Results are in</span><h2>Send it to Myles 💌</h2>
+       <p class="note">Last step: screenshot this card or tap copy, then text it to Myles. He is waiting nervously.</p>
+       ${receipt(row)}<button class="submit" id="copy">Copy my answers 💌</button></div>`;
+  const c = $('#copy');
+  if (c) c.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(text); c.textContent = 'Copied ✓ now text it to him'; }
+    catch { c.textContent = 'Take a screenshot instead'; }
+  });
   window.scrollTo({ top: 0 });
 });
 </script>

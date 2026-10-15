@@ -8,7 +8,7 @@ const crypto = require('crypto');
 
 const PORT = process.env.PORT || 3000;
 const RESULTS_KEY = process.env.RESULTS_KEY || 'changeme';
-const PUBLIC = path.join(__dirname, 'public');
+const PUBLIC = path.join(__dirname, 'docs');
 const DATA_DIR = process.env.DATA_DIR || (fs.existsSync('/data') ? '/data' : path.join(__dirname, 'data'));
 const FILE = path.join(DATA_DIR, 'responses.json');
 

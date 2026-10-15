@@ -23,3 +23,13 @@ RESULTS_KEY=test npm start
 ```
 
 Then open http://localhost:3000.
+
+## GitHub Pages (no server)
+
+In the repo, go to **Settings → Pages**, set **Source** to **Deploy from a branch**, then pick
+branch `main` and folder `/docs`, and click **Save**. Every push to `main` updates the site.
+The site lives at https://mlee33-nor.github.io/survey/
+
+Answers are emailed to mylesn760@gmail.com through FormSubmit. The very first submission
+sends an activation email instead; click **Activate Form** in it, and every answer after that
+arrives as an email. If an email ever fails, she sees a copy screen to text the answers instead.
