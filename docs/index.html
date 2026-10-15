@@ -321,7 +321,7 @@ main.wrap{position:relative;z-index:1}
 
 <div class="bar" id="bar"><div class="bar-in">
   <div class="prog" aria-hidden="true"><i id="progFill"></i></div>
-  <button class="submit" id="submit" disabled>Send it 💌</button>
+  <button class="submit" id="submit" disabled>14 left to answer</button>
 </div></div>
 
 <script>
@@ -387,7 +387,9 @@ function update(){
   const req = [touchedLike, A.likeLevel, A.sweetness, A.moreDates, A.disturbing, A.singing, A.backrooms, A.heartopia, A.howLong, A.hair, A.boyfriend, A.nuts, A.violence, A.kisses !== null];
   const n = req.filter(Boolean).length;
   $('#progFill').style.width = (n/req.length*100) + '%';
-  $('#submit').disabled = n < req.length;
+  const left = req.length - n;
+  $('#submit').disabled = left > 0;
+  $('#submit').textContent = left > 0 ? `${left} left to answer` : 'Send it 💌';
 }
 
 const labels = [["like","How much she likes Myles", v => v + " / 100"],["likeLevel","How much she likes him"],["sweetness","Sweetness", v => v + " / 10"],["moreDates","More dates?"],["disturbing","Thinks he's disturbing?"],
