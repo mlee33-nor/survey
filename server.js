@@ -41,6 +41,7 @@ const ONE_OF = list => v => (list.includes(v) ? v : null);
 const LONG = ONE_OF(['1 month','3 months','6 months','1 year','2 years','5 years','10 years','Forever','∞ INFINITY ∞']);
 const SAT = ONE_OF(['Unsatisfied','Satisfied','Very satisfied']);
 const BF = ONE_OF(['Very unsatisfied','Standard','Very satisfied']);
+const LIKELVL = ONE_OF(['Not much','Sub par','Decent','A lot','Tons','Most ever']);
 const VIOL = ONE_OF(['Never','Sometimes','Decent amount','Always']);
 function clean(b) {
   const like = Math.round(Number(b.like));
@@ -48,7 +49,7 @@ function clean(b) {
   const sweetness = Math.round(Number(b.sweetness));
   if (!(sweetness >= 1 && sweetness <= 10)) return null;
   if (!(like >= 1 && like <= 100) || !(kisses >= 0 && kisses <= 9999)) return null;
-  const row = { like, sweetness, moreDates: YN(b.moreDates), singing: YN(b.singing), disturbing: YN(b.disturbing), backrooms: YN(b.backrooms), heartopia: YN(b.heartopia), howLong: LONG(b.howLong), hair: SAT(b.hair), boyfriend: BF(b.boyfriend), nuts: SAT(b.nuts), violence: VIOL(b.violence), kisses };
+  const row = { like, likeLevel: LIKELVL(b.likeLevel), sweetness, moreDates: YN(b.moreDates), singing: YN(b.singing), disturbing: YN(b.disturbing), backrooms: YN(b.backrooms), heartopia: YN(b.heartopia), howLong: LONG(b.howLong), hair: SAT(b.hair), boyfriend: BF(b.boyfriend), nuts: SAT(b.nuts), violence: VIOL(b.violence), kisses };
   if (Object.values(row).some(v => v === null)) return null;
   row.at = new Date().toISOString();
   return row;
@@ -60,6 +61,7 @@ const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;',
 function resultsPage(rows) {
   const card = r => `<div class="r"><p class="when">${esc(new Date(r.at).toLocaleString('en-US', { timeZone: 'America/Phoenix' }))}</p>
     <div><span>How much she likes Myles</span><b>${esc(r.like)} / 100</b></div>
+    <div><span>How much she likes him</span><b>${esc(r.likeLevel)}</b></div>
     <div><span>Sweetness</span><b>${esc(r.sweetness)} / 10</b></div>
     <div><span>More dates?</span><b>${esc(r.moreDates)}</b></div>
     <div><span>Is his singing annoying?</span><b>${esc(r.singing)}</b></div>

@@ -78,10 +78,11 @@ input:focus-visible,button:focus-visible{outline:3px solid var(--accent-2);outli
 .scale{grid-template-columns:repeat(5,1fr);gap:8px}
 .scale .choice{padding:12px 0;font-size:18px;font-variant-numeric:tabular-nums}
 .scale-ends{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-weight:700;font-size:13px}
-.three{grid-template-columns:repeat(3,1fr)}
+.three,.six{grid-template-columns:repeat(3,1fr)}
+.six .choice{font-size:15px;padding:14px 6px}
 .four{grid-template-columns:repeat(4,1fr)}
 .three .choice,.four .choice{font-size:15px;padding:14px 6px;text-align:center}
-@media (max-width:480px){.three{grid-template-columns:1fr}.four{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.three{grid-template-columns:1fr}.six{grid-template-columns:1fr 1fr}.four{grid-template-columns:1fr 1fr}}
 .howlong{display:flex;justify-content:center}
 .hl-val{font-family:var(--display);font-weight:800;font-size:clamp(30px,8vw,44px);color:var(--accent);font-variant-numeric:tabular-nums;line-height:1.1;text-align:center}
 #long{width:100%;accent-color:var(--accent);height:28px}
@@ -153,7 +154,7 @@ input:focus-visible,button:focus-visible{outline:3px solid var(--accent-2);outli
   <header>
     <span class="tag">Official · Confidential · Very serious</span>
     <h1>The <em>Myles</em> Survey</h1>
-    <p class="sub">Thirteen questions. Answer honestly. He will see this.</p>
+    <p class="sub">Fourteen questions. Answer honestly. He will see this.</p>
   </header>
 
 
@@ -174,77 +175,82 @@ input:focus-visible,button:focus-visible{outline:3px solid var(--accent-2);outli
   </section>
 
 
-    <section class="q" data-key="sweetness">
-    <div class="qhead"><span class="qn">02</span><h2 class="qt">Rate his sweetness</h2></div>
+    <section class="q" data-key="likeLevel">
+    <div class="qhead"><span class="qn">02</span><h2 class="qt">How much do you like him?</h2></div>
+    <div class="choices six"><button class="choice" data-v="Not much" aria-pressed="false">Not much</button><button class="choice" data-v="Sub par" aria-pressed="false">Sub par</button><button class="choice" data-v="Decent" aria-pressed="false">Decent</button><button class="choice" data-v="A lot" aria-pressed="false">A lot</button><button class="choice" data-v="Tons" aria-pressed="false">Tons</button><button class="choice" data-v="Most ever" aria-pressed="false">Most ever 💖</button></div>
+  </section>
+
+  <section class="q" data-key="sweetness">
+    <div class="qhead"><span class="qn">03</span><h2 class="qt">Rate his sweetness</h2></div>
     <div class="choices scale" role="group" aria-label="Sweetness from 1 to 10"><button class="choice" data-v="1" aria-pressed="false">1</button><button class="choice" data-v="2" aria-pressed="false">2</button><button class="choice" data-v="3" aria-pressed="false">3</button><button class="choice" data-v="4" aria-pressed="false">4</button><button class="choice" data-v="5" aria-pressed="false">5</button><button class="choice" data-v="6" aria-pressed="false">6</button><button class="choice" data-v="7" aria-pressed="false">7</button><button class="choice" data-v="8" aria-pressed="false">8</button><button class="choice" data-v="9" aria-pressed="false">9</button><button class="choice" data-v="10" aria-pressed="false">10</button></div>
     <div class="scale-ends"><span>1 · sour 🍋</span><span>10 · pure sugar 🍬</span></div>
   </section>
 
   <figure class="photo l"><img src="img/s1.jpg" alt="Selfie at the boba shop" loading="lazy"><figcaption>Exhibit B: hair ruffle incident</figcaption></figure>
   <section class="q" data-key="moreDates">
-    <div class="qhead"><span class="qn">03</span><h2 class="qt">Would you go on more dates with him?</h2></div>
+    <div class="qhead"><span class="qn">04</span><h2 class="qt">Would you go on more dates with him?</h2></div>
     <div class="choices"><button class="choice" data-v="Yes" aria-pressed="false">Yes 💕</button><button class="choice" data-v="No" aria-pressed="false">No</button></div>
   </section>
 
 
   <figure class="photo r"><img src="img/m3.jpg" alt="Myles peeking through the bedroom window in Heartopia" loading="lazy"><figcaption>Exhibit C: the window 👀</figcaption></figure>
   <section class="q" data-key="disturbing">
-    <div class="qhead"><span class="qn">04</span><h2 class="qt">Do you think he's disturbing?</h2></div>
+    <div class="qhead"><span class="qn">05</span><h2 class="qt">Do you think he's disturbing?</h2></div>
     <div class="choices"><button class="choice" data-v="Yes" aria-pressed="false">Yes 😳</button><button class="choice" data-v="No" aria-pressed="false">No</button></div>
   </section>
 
 
     <section class="q" data-key="singing">
-    <div class="qhead"><span class="qn">05</span><h2 class="qt">Is his singing annoying?</h2></div>
+    <div class="qhead"><span class="qn">06</span><h2 class="qt">Is his singing annoying?</h2></div>
     <div class="choices"><button class="choice" data-v="Yes" aria-pressed="false">Yes 🙉</button><button class="choice" data-v="No" aria-pressed="false">No, it's cute 🎤</button></div>
   </section>
 
   <figure class="photo l"><img src="img/m1.jpg" alt="Myles running after her outside the castle" loading="lazy"><figcaption>Exhibit D: the chase</figcaption></figure>
   <section class="q" data-key="backrooms">
-    <div class="qhead"><span class="qn">06</span><h2 class="qt">Would you ever escape the Backrooms with him?</h2></div>
+    <div class="qhead"><span class="qn">07</span><h2 class="qt">Would you ever escape the Backrooms with him?</h2></div>
     <div class="choices"><button class="choice" data-v="Yes" aria-pressed="false">Yes</button><button class="choice" data-v="No" aria-pressed="false">I'd leave him on Level 0</button></div>
   </section>
 
 
   <figure class="photo r"><img src="img/m2.jpg" alt="Myles hugging her in a cozy Heartopia room" loading="lazy"><figcaption>Exhibit E: the hug</figcaption></figure>
   <section class="q" data-key="heartopia">
-    <div class="qhead"><span class="qn">07</span><h2 class="qt">Is he your Heartopia duo?</h2></div>
+    <div class="qhead"><span class="qn">08</span><h2 class="qt">Is he your Heartopia duo?</h2></div>
     <div class="choices"><button class="choice" data-v="Yes" aria-pressed="false">Yes 🌷</button><button class="choice" data-v="No" aria-pressed="false">No</button></div>
   </section>
 
 
   <figure class="photo l"><img src="img/s2.jpg" alt="Selfie with Myles giving a side-eye smile" loading="lazy"><figcaption>Exhibit F: that look</figcaption></figure>
     <section class="q" id="qLong">
-    <div class="qhead"><span class="qn">08</span><h2 class="qt">How long do you want to date him?</h2></div>
+    <div class="qhead"><span class="qn">09</span><h2 class="qt">How long do you want to date him?</h2></div>
     <div class="howlong"><span class="hl-val" id="longVal">Pick one</span></div>
     <input type="range" id="long" min="0" max="8" step="1" value="0" aria-label="How long you want to date him">
     <div class="scale-ends"><span>1 month</span><span>∞</span></div>
   </section>
 
   <section class="q" data-key="hair">
-    <div class="qhead"><span class="qn">09</span><h2 class="qt">Do you like playing with his hair?</h2></div>
+    <div class="qhead"><span class="qn">10</span><h2 class="qt">Do you like playing with his hair?</h2></div>
     <div class="choices three"><button class="choice" data-v="Unsatisfied" aria-pressed="false">Unsatisfied</button><button class="choice" data-v="Satisfied" aria-pressed="false">Satisfied</button><button class="choice" data-v="Very satisfied" aria-pressed="false">Very satisfied</button></div>
   </section>
 
   <figure class="photo r"><img src="img/s3.jpg" alt="Collage from the boba date, including a kiss on the cheek" loading="lazy"><figcaption>Exhibit G: the boba date 🧋</figcaption></figure>
 
   <section class="q" data-key="boyfriend">
-    <div class="qhead"><span class="qn">10</span><h2 class="qt">His behavior as a boyfriend</h2></div>
+    <div class="qhead"><span class="qn">11</span><h2 class="qt">His behavior as a boyfriend</h2></div>
     <div class="choices three"><button class="choice" data-v="Very unsatisfied" aria-pressed="false">Very unsatisfied</button><button class="choice" data-v="Standard" aria-pressed="false">Standard</button><button class="choice" data-v="Very satisfied" aria-pressed="false">Very satisfied</button></div>
   </section>
 
   <section class="q" data-key="nuts">
-    <div class="qhead"><span class="qn">11</span><h2 class="qt">These nuts</h2></div>
+    <div class="qhead"><span class="qn">12</span><h2 class="qt">These nuts</h2></div>
     <div class="choices three"><button class="choice" data-v="Unsatisfied" aria-pressed="false">Unsatisfied 🥜</button><button class="choice" data-v="Satisfied" aria-pressed="false">Satisfied 🥜</button><button class="choice" data-v="Very satisfied" aria-pressed="false">Very satisfied 🥜</button></div>
   </section>
 
   <section class="q" data-key="violence">
-    <div class="qhead"><span class="qn">12</span><h2 class="qt">Violence rate</h2></div>
+    <div class="qhead"><span class="qn">13</span><h2 class="qt">Violence rate</h2></div>
     <div class="choices four"><button class="choice" data-v="Never" aria-pressed="false">Never 😇</button><button class="choice" data-v="Sometimes" aria-pressed="false">Sometimes</button><button class="choice" data-v="Decent amount" aria-pressed="false">Decent amount</button><button class="choice" data-v="Always" aria-pressed="false">Always 😈</button></div>
   </section>
 
   <section class="q" id="q6">
-    <div class="qhead"><span class="qn">13</span><h2 class="qt">If you saw him walking, how many kisses would you give him?</h2></div>
+    <div class="qhead"><span class="qn">14</span><h2 class="qt">If you saw him walking, how many kisses would you give him?</h2></div>
     <div class="kiss">
       <button class="step" id="minus" aria-label="One fewer kiss">−</button>
       <input type="number" id="kisses" min="0" max="9999" placeholder="?" aria-label="Number of kisses">
@@ -261,7 +267,7 @@ input:focus-visible,button:focus-visible{outline:3px solid var(--accent-2);outli
 </div></div>
 
 <script>
-const A = { like: 50, sweetness:null, moreDates:null, singing:null, disturbing:null, backrooms:null, heartopia:null, howLong:null, hair:null, boyfriend:null, nuts:null, violence:null, kisses:null };
+const A = { like: 50, likeLevel:null, sweetness:null, moreDates:null, singing:null, disturbing:null, backrooms:null, heartopia:null, howLong:null, hair:null, boyfriend:null, nuts:null, violence:null, kisses:null };
 let touchedLike = false;
 const $ = s => document.querySelector(s);
 const quips = [[1,"Ouch. Okay."],[20,"Room to grow."],[40,"Hmm. Neutral. Suspicious."],[60,"Ooh, a fan."],[80,"Big fan behavior."],[95,"Obsessed. Noted."],[100,"Maximum love unlocked 💖"]];
@@ -314,13 +320,13 @@ $('#plus').addEventListener('click', () => setKiss((A.kisses ?? 0) + 1));
 $('#minus').addEventListener('click', () => setKiss(Math.max(0, (A.kisses ?? 1) - 1)));
 
 function update(){
-  const req = [touchedLike, A.sweetness, A.moreDates, A.disturbing, A.singing, A.backrooms, A.heartopia, A.howLong, A.hair, A.boyfriend, A.nuts, A.violence, A.kisses !== null];
+  const req = [touchedLike, A.likeLevel, A.sweetness, A.moreDates, A.disturbing, A.singing, A.backrooms, A.heartopia, A.howLong, A.hair, A.boyfriend, A.nuts, A.violence, A.kisses !== null];
   const n = req.filter(Boolean).length;
   $('#progFill').style.width = (n/req.length*100) + '%';
   $('#submit').disabled = n < req.length;
 }
 
-const labels = [["like","How much she likes Myles", v => v + " / 100"],["sweetness","Sweetness", v => v + " / 10"],["moreDates","More dates?"],["disturbing","Thinks he's disturbing?"],
+const labels = [["like","How much she likes Myles", v => v + " / 100"],["likeLevel","How much she likes him"],["sweetness","Sweetness", v => v + " / 10"],["moreDates","More dates?"],["disturbing","Thinks he's disturbing?"],
   ["singing","Is his singing annoying?"],["backrooms","Escape the Backrooms together?"],["heartopia","Heartopia duo?"],["howLong","How long she wants to date him"],["hair","Playing with his hair"],["boyfriend","His boyfriend behavior"],["nuts","These nuts"],["violence","Violence rate"],["kisses","Kisses on sight", v => v]];
 function receipt(r){
   return '<div class="receipt">' + labels.map(([k, l, f]) => `<div><span>${l}</span><b>${esc(f ? f(r[k]) : r[k])}</b></div>`).join('') + '</div>';
@@ -340,6 +346,7 @@ $('#submit').addEventListener('click', async () => {
         _template: 'table',
         _captcha: 'false',
         'How much she likes Myles': row.like + ' / 100',
+        'How much she likes him': row.likeLevel,
         'Sweetness': row.sweetness + ' / 10',
         'More dates?': row.moreDates,
         'Is his singing annoying?': row.singing,
