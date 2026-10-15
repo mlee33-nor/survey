@@ -153,6 +153,19 @@ button.player:hover .bigplay{transform:scale(1.1)}
 .sus span{font-family:var(--display);font-weight:800;font-size:15px;text-align:center;color:var(--ink)}
 .q.sussy .sus{opacity:1}
 @media (min-width:900px){.sus{top:50%;right:auto;left:calc(100% + 18px);width:220px;margin-top:-90px}.sus span{font-size:19px}}
+/* light / dark switch */
+.theme{position:fixed;z-index:30;top:calc(12px + env(safe-area-inset-top,0px));right:calc(12px + env(safe-area-inset-right,0px));
+  width:68px;height:36px;border-radius:999px;border:1.5px solid var(--line);background:var(--card);cursor:pointer;padding:0;
+  box-shadow:0 8px 20px -12px var(--accent)}
+.theme-ico{position:absolute;top:50%;transform:translateY(-50%);font-size:15px;line-height:1}
+.theme .sun{left:9px}.theme .moon{right:9px}
+.knob{position:absolute;top:3px;left:3px;width:28px;height:28px;border-radius:50%;background:var(--accent);
+  transition:transform .45s cubic-bezier(.3,1.4,.5,1);box-shadow:0 2px 8px -2px var(--accent)}
+.theme[aria-checked="true"] .knob{transform:translateX(32px)}
+.theme:focus-visible{outline:3px solid var(--accent-2);outline-offset:2px}
+html.theming, html.theming *, html.theming *::before, html.theming *::after{
+  transition:background-color .6s ease, color .6s ease, border-color .6s ease, fill .6s ease, box-shadow .6s ease !important}
+@media (max-width:600px){.wrap{padding-top:64px}}
 /* drifting background circles */
 .blobs{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
 .blobs i{position:absolute;border-radius:50%;background:var(--soft);opacity:.9}
@@ -239,6 +252,10 @@ main.wrap{position:relative;z-index:1}
 @keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.12)}100%{transform:scale(1)}}
 </style>
 </head><body>
+<button class="theme" id="theme" type="button" role="switch" aria-checked="false" aria-label="Dark mode">
+  <span class="theme-ico sun" aria-hidden="true">☀️</span><span class="theme-ico moon" aria-hidden="true">🌙</span><span class="knob" aria-hidden="true"></span>
+</button>
+
 <div class="blobs" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
 
 <main class="wrap" id="app">
@@ -415,6 +432,21 @@ document.querySelector('.q[data-key="violence"]').addEventListener('click', e =>
     [{transform:'rotate(-14deg) scale(.2)', opacity:0},{transform:'rotate(6deg) scale(1.15)', opacity:1, offset:.6},{transform:'rotate(-4deg) scale(1)', opacity:1}],
     {duration:550, easing:'cubic-bezier(.2,.9,.3,1.4)'});
 });
+// Light / dark switch (remembers the choice in this browser)
+(function(){
+  const root = document.documentElement, btn = $('#theme');
+  const isDark = () => root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  try { const saved = localStorage.getItem('myles-theme'); if (saved) root.dataset.theme = saved; } catch (e) {}
+  const sync = () => { const d = isDark(); btn.setAttribute('aria-checked', d); btn.setAttribute('aria-label', d ? 'Switch to light mode' : 'Switch to dark mode'); };
+  sync();
+  btn.addEventListener('click', () => {
+    root.classList.add('theming');
+    root.dataset.theme = isDark() ? 'light' : 'dark';
+    try { localStorage.setItem('myles-theme', root.dataset.theme); } catch (e) {}
+    sync();
+    clearTimeout(btn._t); btn._t = setTimeout(() => root.classList.remove('theming'), 700);
+  });
+})();
 const LONG = ['1 month','3 months','6 months','1 year','2 years','5 years','10 years','Forever','∞ INFINITY ∞'];
 function setLong(i){
   A.howLong = LONG[i]; $('#longVal').textContent = LONG[i];
