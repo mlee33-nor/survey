@@ -137,6 +137,13 @@ button.player:hover .bigplay{transform:scale(1.1)}
 .results{display:flex;flex-direction:column;gap:12px}
 .results h2{font-family:var(--display);font-size:26px;margin:20px 0 0}
 .empty{color:var(--muted);font-weight:600}
+/* WHAT THE FREAK sticker */
+.q[data-key="nuts"]{position:relative}
+.freak{position:absolute;top:-14px;right:-12px;z-index:2;font-family:var(--display);font-weight:800;font-size:17px;letter-spacing:.02em;
+  background:var(--accent);color:var(--on-accent);padding:8px 14px;border-radius:14px;transform:rotate(4deg);
+  box-shadow:0 10px 24px -10px var(--accent);opacity:0;pointer-events:none;white-space:nowrap}
+.q.freaky .freak{opacity:1}
+@media (min-width:900px){.freak{top:50%;right:auto;left:calc(100% + 18px);font-size:22px}}
 /* drifting background circles */
 .blobs{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
 .blobs i{position:absolute;border-radius:50%;background:var(--soft);opacity:.9}
@@ -322,6 +329,7 @@ main.wrap{position:relative;z-index:1}
   </section>
 
   <section class="q" data-key="nuts">
+    <span class="freak" aria-live="polite">WHAT THE FREAK 😳</span>
     <div class="qhead"><span class="qn">12</span><h2 class="qt">These nuts</h2></div>
     <div class="choices three"><button class="choice" data-v="Unsatisfied" aria-pressed="false">Unsatisfied 🥜</button><button class="choice" data-v="Satisfied" aria-pressed="false">Satisfied 🥜</button><button class="choice" data-v="Very satisfied" aria-pressed="false">Very satisfied 🥜</button></div>
   </section>
@@ -379,6 +387,15 @@ function playSong(){
 }
 document.addEventListener('pointerdown', function first(){ document.removeEventListener('pointerdown', first, true); playSong(); }, true);
 document.addEventListener('keydown', function firstKey(){ document.removeEventListener('keydown', firstKey, true); playSong(); }, true);
+// "These nuts" → Very satisfied
+document.querySelector('.q[data-key="nuts"]').addEventListener('click', e => {
+  if (!e.target.closest('.choice')) return;
+  const sec = e.currentTarget, on = A.nuts === 'Very satisfied';
+  sec.classList.toggle('freaky', on);
+  if (on && !reduceMotion) sec.querySelector('.freak').animate(
+    [{transform:'rotate(8deg) scale(.2)', opacity:0},{transform:'rotate(-6deg) scale(1.25)', opacity:1, offset:.6},{transform:'rotate(4deg) scale(1)', opacity:1}],
+    {duration:500, easing:'cubic-bezier(.2,.9,.3,1.4)'});
+});
 const LONG = ['1 month','3 months','6 months','1 year','2 years','5 years','10 years','Forever','∞ INFINITY ∞'];
 function setLong(i){
   A.howLong = LONG[i]; $('#longVal').textContent = LONG[i];
