@@ -88,14 +88,20 @@ input:focus-visible,button:focus-visible{outline:3px solid var(--accent-2);outli
 .q.inf{animation:quake .09s linear infinite;border-color:var(--accent);box-shadow:0 0 0 4px var(--soft),0 0 40px -6px var(--accent)}
 .q.inf .hl-val{animation:quake .07s linear infinite reverse;font-size:clamp(52px,14vw,76px)}
 @keyframes quake{0%{transform:translate(0,0) rotate(0)}20%{transform:translate(-4px,2px) rotate(-1.5deg)}40%{transform:translate(4px,-3px) rotate(1.5deg)}60%{transform:translate(-3px,-2px) rotate(-1deg)}80%{transform:translate(3px,3px) rotate(1deg)}100%{transform:translate(0,0) rotate(0)}}
-.music{margin-top:6px}
-.play{font:inherit;cursor:pointer;display:flex;align-items:center;gap:12px;background:var(--card);color:var(--ink);
-  border:1.5px solid var(--line);border-radius:999px;padding:8px 18px 8px 8px;text-align:left}
-.play:hover{border-color:var(--accent-2)}
-.play b{display:block;font-weight:800}.play small{display:block;color:var(--muted);font-weight:700;font-size:13px}
-.disc{width:40px;height:40px;border-radius:50%;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;font-size:20px;flex:none}
-.player{width:min(100%,320px);aspect-ratio:16/9;border-radius:14px;overflow:hidden;border:1.5px solid var(--line);max-width:100%}
+.dock{position:fixed;z-index:20;top:calc(12px + env(safe-area-inset-top,0px));right:calc(12px + env(safe-area-inset-right,0px));
+  display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.player{width:220px;aspect-ratio:16/9;border-radius:14px;overflow:hidden;border:2px solid var(--accent);background:var(--card);
+  box-shadow:0 12px 30px -12px var(--accent);max-width:100%}
 .player iframe{width:100%;height:100%;border:0;display:block}
+.np{margin:0;font-weight:800;font-size:12px;color:var(--muted);background:var(--card);padding:3px 10px;border-radius:999px;border:1px solid var(--line)}
+.hitit{position:absolute;right:100%;top:30px;margin-right:4px;display:flex;flex-direction:column;align-items:flex-end;pointer-events:none;
+  transform:rotate(-6deg);animation:nudge 1s ease-in-out infinite}
+.hitit span{font-family:var(--display);font-weight:800;font-size:26px;color:var(--accent);letter-spacing:.04em;white-space:nowrap;
+  text-shadow:0 2px 0 var(--card)}
+.hitit.gone{display:none}
+@keyframes nudge{0%,100%{transform:rotate(-6deg) translate(0,0)}50%{transform:rotate(-6deg) translate(6px,-4px)}}
+.wrap{padding-top:150px}
+@media (max-width:720px){.player{width:160px}.hitit span{font-size:20px}.hitit svg{width:60px;height:40px}.hitit{top:16px}}
 .choice[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent);transform:scale(1.02)}
 
 /* kisses */
@@ -134,15 +140,20 @@ input:focus-visible,button:focus-visible{outline:3px solid var(--accent-2);outli
 @keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.12)}100%{transform:scale(1)}}
 </style>
 </head><body>
+<aside class="dock" aria-label="Our song">
+  <div class="hitit" id="hitit" aria-hidden="true">
+    <span>HIT IT</span>
+    <svg viewBox="0 0 90 60" width="78" height="52"><path d="M6 50 C 26 52, 52 46, 70 16" fill="none" stroke="var(--accent)" stroke-width="4" stroke-linecap="round"/><path d="M58 18 L 72 12 L 74 28" fill="none" stroke="var(--accent)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+  <div class="player" id="player"><iframe id="yt" src="https://www.youtube.com/embed/-5_tGEao_GQ?enablejsapi=1&loop=1&playlist=-5_tGEao_GQ&playsinline=1&rel=0" title="Kingston by Faye Webster" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
+  <p class="np">♪ Kingston · Faye Webster</p>
+</aside>
+
 <main class="wrap" id="app">
   <header>
     <span class="tag">Official · Confidential · Very serious</span>
     <h1>The <em>Myles</em> Survey</h1>
     <p class="sub">Thirteen questions. Answer honestly. He will see this.</p>
-    <div class="music" id="music">
-      <button class="play" id="playSong" type="button"><span class="disc" aria-hidden="true">♪</span><span><b>Play our song</b><small>Kingston · Faye Webster</small></span></button>
-      <div class="player" id="player" hidden></div>
-    </div>
   </header>
 
 
@@ -266,17 +277,13 @@ function setLike(v, src){
   $('#quip').textContent = q;
   $('#q1').classList.add('done'); update();
 }
-// Background song: official "Kingston" video, started on her first tap (browsers block sound before that).
-let songOn = false;
-function startSong(){
-  if (songOn) return; songOn = true;
-  const f = document.createElement('iframe');
-  f.src = 'https://www.youtube.com/embed/-5_tGEao_GQ?autoplay=1&loop=1&playlist=-5_tGEao_GQ&playsinline=1&rel=0';
-  f.title = 'Kingston by Faye Webster'; f.allow = 'autoplay; encrypted-media'; f.allowFullscreen = true;
-  $('#player').appendChild(f); $('#player').hidden = false; $('#playSong').hidden = true;
+// Background song: tap the player (or anywhere) to start "Kingston".
+function playSong(){
+  try { $('#yt').contentWindow.postMessage(JSON.stringify({event:'command', func:'playVideo', args:[]}), '*'); } catch (e) {}
+  $('#hitit').classList.add('gone');
 }
-$('#playSong').addEventListener('click', startSong);
-document.addEventListener('pointerdown', function first(e){ document.removeEventListener('pointerdown', first); startSong(); }, { once: true });
+document.addEventListener('pointerdown', function first(e){ document.removeEventListener('pointerdown', first); playSong(); });
+window.addEventListener('blur', () => { if (document.activeElement === $('#yt')) $('#hitit').classList.add('gone'); });
 const LONG = ['1 month','3 months','6 months','1 year','2 years','5 years','10 years','Forever','∞ INFINITY ∞'];
 function setLong(i){
   A.howLong = LONG[i]; $('#longVal').textContent = LONG[i];
