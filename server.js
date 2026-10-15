@@ -40,8 +40,10 @@ const YN = v => (v === 'Yes' || v === 'No' ? v : null);
 function clean(b) {
   const like = Math.round(Number(b.like));
   const kisses = Math.round(Number(b.kisses));
+  const sweetness = Math.round(Number(b.sweetness));
+  if (!(sweetness >= 1 && sweetness <= 10)) return null;
   if (!(like >= 1 && like <= 100) || !(kisses >= 0 && kisses <= 9999)) return null;
-  const row = { like, moreDates: YN(b.moreDates), disturbing: YN(b.disturbing), backrooms: YN(b.backrooms), heartopia: YN(b.heartopia), kisses };
+  const row = { like, sweetness, moreDates: YN(b.moreDates), singing: YN(b.singing), disturbing: YN(b.disturbing), backrooms: YN(b.backrooms), heartopia: YN(b.heartopia), kisses };
   if (Object.values(row).some(v => v === null)) return null;
   row.at = new Date().toISOString();
   return row;
@@ -53,7 +55,9 @@ const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;',
 function resultsPage(rows) {
   const card = r => `<div class="r"><p class="when">${esc(new Date(r.at).toLocaleString('en-US', { timeZone: 'America/Phoenix' }))}</p>
     <div><span>How much she likes Myles</span><b>${esc(r.like)} / 100</b></div>
+    <div><span>Sweetness</span><b>${esc(r.sweetness)} / 10</b></div>
     <div><span>More dates?</span><b>${esc(r.moreDates)}</b></div>
+    <div><span>Is his singing annoying?</span><b>${esc(r.singing)}</b></div>
     <div><span>Thinks he's disturbing?</span><b>${esc(r.disturbing)}</b></div>
     <div><span>Escape the Backrooms together?</span><b>${esc(r.backrooms)}</b></div>
     <div><span>Heartopia duo?</span><b>${esc(r.heartopia)}</b></div>
