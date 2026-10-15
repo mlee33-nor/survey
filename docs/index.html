@@ -24,10 +24,7 @@
 html{padding-top:env(safe-area-inset-top,0px)}
 body{margin:0}
 [hidden]{display:none!important}
-body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5;
-  background-image:radial-gradient(circle at 12% 8%, var(--soft) 0 140px, transparent 141px),
-                   radial-gradient(circle at 92% 30%, var(--soft) 0 90px, transparent 91px);
-  background-repeat:no-repeat}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5;}
 .wrap{max-width:560px;margin:0 auto;padding-block:40px 120px;
   padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));
   display:flex;flex-direction:column;gap:18px}
@@ -140,6 +137,31 @@ button.player:hover .bigplay{transform:scale(1.1)}
 .results{display:flex;flex-direction:column;gap:12px}
 .results h2{font-family:var(--display);font-size:26px;margin:20px 0 0}
 .empty{color:var(--muted);font-weight:600}
+/* drifting background circles */
+.blobs{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.blobs i{position:absolute;border-radius:50%;background:var(--soft);opacity:.9}
+.blobs i:nth-child(1){width:300px;height:300px;left:-60px;top:-40px;animation:drift1 38s ease-in-out infinite alternate}
+.blobs i:nth-child(2){width:190px;height:190px;right:-30px;top:22%;animation:drift2 46s ease-in-out infinite alternate}
+.blobs i:nth-child(3){width:240px;height:240px;left:4%;top:58%;animation:drift3 52s ease-in-out infinite alternate}
+.blobs i:nth-child(4){width:140px;height:140px;right:12%;bottom:6%;animation:drift1 34s ease-in-out infinite alternate-reverse}
+.blobs i:nth-child(5){width:90px;height:90px;left:46%;top:36%;opacity:.6;animation:drift2 30s ease-in-out infinite alternate-reverse}
+@keyframes drift1{0%{transform:translate(0,0) scale(1)}50%{transform:translate(90px,60px) scale(1.12)}100%{transform:translate(30px,140px) scale(.92)}}
+@keyframes drift2{0%{transform:translate(0,0) scale(1)}50%{transform:translate(-110px,80px) scale(.9)}100%{transform:translate(-40px,-70px) scale(1.15)}}
+@keyframes drift3{0%{transform:translate(0,0) scale(1)}50%{transform:translate(120px,-90px) scale(1.1)}100%{transform:translate(200px,20px) scale(.95)}}
+/* 100: pumping, melting heart */
+.heart .drip,.heart .puddle{position:absolute;background:var(--accent);opacity:0;pointer-events:none}
+.heart .drip{width:9px;height:12px;border-radius:50% 50% 50% 50% / 40% 40% 60% 60%;top:72%}
+.heart .d1{left:30%}.heart .d2{left:52%;width:11px}.heart .d3{left:66%}
+.heart .puddle{left:12%;right:12%;bottom:-10px;height:8px;border-radius:50%}
+.heart.max svg{animation:pump .8s ease-in-out infinite;transform-origin:50% 60%}
+.heart.max .num{animation:pump .8s ease-in-out infinite;transform-origin:50% 60%}
+.heart.max .drip{animation:drip 1.6s ease-in infinite}
+.heart.max .d2{animation-delay:.5s;animation-duration:1.9s}
+.heart.max .d3{animation-delay:1s;animation-duration:1.4s}
+.heart.max .puddle{animation:puddle .6s ease-out forwards}
+@keyframes pump{0%,100%{transform:scale(1,.94) translateY(3px)}15%{transform:scale(1.12,1.04) translateY(-2px)}30%{transform:scale(1,.94) translateY(3px)}45%{transform:scale(1.08,1.01)}70%{transform:scale(1.02,.9) translateY(5px)}}
+@keyframes drip{0%{opacity:0;transform:translateY(0) scaleY(.4)}15%{opacity:1;transform:translateY(2px) scaleY(1.3)}70%{opacity:1;transform:translateY(26px) scaleY(1.6)}100%{opacity:0;transform:translateY(34px) scaleY(.6)}}
+@keyframes puddle{from{opacity:0;transform:scaleX(.2)}to{opacity:.85;transform:scaleX(1)}}
 /* finale */
 main.wrap{position:relative;z-index:1}
 .boom{position:fixed;inset:0;z-index:50;pointer-events:none;overflow:hidden}
@@ -201,6 +223,8 @@ main.wrap{position:relative;z-index:1}
 @keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.12)}100%{transform:scale(1)}}
 </style>
 </head><body>
+<div class="blobs" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+
 <main class="wrap" id="app">
   <header>
     <span class="tag">Official · Confidential · Very serious</span>
@@ -220,7 +244,7 @@ main.wrap{position:relative;z-index:1}
   <section class="q" id="q1">
     <div class="qhead"><span class="qn">01</span><h2 class="qt">How much do you like Myles?</h2></div>
     <div class="score">
-      <div class="heart" id="heart">
+      <div class="heart" id="heart"><span class="drip d1"></span><span class="drip d2"></span><span class="drip d3"></span><span class="puddle"></span>
         <svg viewBox="0 0 100 92" aria-hidden="true"><path fill="var(--accent)" d="M50 90C22 70 2 52 2 29 2 13 14 2 28 2c10 0 18 5 22 13C54 7 62 2 72 2c14 0 26 11 26 27 0 23-20 41-48 61z"/></svg>
         <span class="num" id="scoreNum">50</span>
       </div>
@@ -337,6 +361,7 @@ function setLike(v, src){
   $('#scoreNum').textContent = v;
   const h = $('#heart'); h.classList.remove('pop'); void h.offsetWidth; h.classList.add('pop');
   h.style.transform = `scale(${0.85 + v/100*0.3})`;
+  h.classList.toggle('max', v === 100);
   let q = quips[0][1]; for (const [t, s] of quips) if (v >= t) q = s;
   $('#quip').textContent = q;
   $('#q1').classList.add('done'); update();
