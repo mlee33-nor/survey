@@ -144,6 +144,15 @@ button.player:hover .bigplay{transform:scale(1.1)}
   box-shadow:0 10px 24px -10px var(--accent);opacity:0;pointer-events:none;white-space:nowrap}
 .q.freaky .freak{opacity:1}
 @media (min-width:900px){.freak{top:50%;right:auto;left:calc(100% + 18px);font-size:22px}}
+/* ..... interesting pop-up */
+.q[data-key="violence"]{position:relative}
+.sus{position:absolute;z-index:2;margin:0;top:-70px;right:-10px;width:150px;background:var(--card);padding:6px 6px 8px;border-radius:6px;
+  border:1px solid var(--line);box-shadow:0 14px 30px -12px rgba(58,21,48,.55);transform:rotate(-4deg);opacity:0;pointer-events:none;
+  display:flex;flex-direction:column;gap:4px}
+.sus img{width:100%;height:auto;border-radius:3px;display:block}
+.sus span{font-family:var(--display);font-weight:800;font-size:15px;text-align:center;color:var(--ink)}
+.q.sussy .sus{opacity:1}
+@media (min-width:900px){.sus{top:50%;right:auto;left:calc(100% + 18px);width:220px;margin-top:-90px}.sus span{font-size:19px}}
 /* drifting background circles */
 .blobs{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
 .blobs i{position:absolute;border-radius:50%;background:var(--soft);opacity:.9}
@@ -335,6 +344,7 @@ main.wrap{position:relative;z-index:1}
   </section>
 
   <section class="q" data-key="violence">
+    <figure class="sus" aria-hidden="true"><img src="img/r1.jpg" alt=""><span>..... interesting</span></figure>
     <div class="qhead"><span class="qn">13</span><h2 class="qt">Violence rate</h2></div>
     <div class="choices four"><button class="choice" data-v="Never" aria-pressed="false">Never 😇</button><button class="choice" data-v="Sometimes" aria-pressed="false">Sometimes</button><button class="choice" data-v="Decent amount" aria-pressed="false">Decent amount</button><button class="choice" data-v="Always" aria-pressed="false">Always 😈</button></div>
   </section>
@@ -395,6 +405,15 @@ document.querySelector('.q[data-key="nuts"]').addEventListener('click', e => {
   if (on && !reduceMotion) sec.querySelector('.freak').animate(
     [{transform:'rotate(8deg) scale(.2)', opacity:0},{transform:'rotate(-6deg) scale(1.25)', opacity:1, offset:.6},{transform:'rotate(4deg) scale(1)', opacity:1}],
     {duration:500, easing:'cubic-bezier(.2,.9,.3,1.4)'});
+});
+// Violence rate → Always
+document.querySelector('.q[data-key="violence"]').addEventListener('click', e => {
+  if (!e.target.closest('.choice')) return;
+  const sec = e.currentTarget, on = A.violence === 'Always';
+  sec.classList.toggle('sussy', on);
+  if (on && !reduceMotion) sec.querySelector('.sus').animate(
+    [{transform:'rotate(-14deg) scale(.2)', opacity:0},{transform:'rotate(6deg) scale(1.15)', opacity:1, offset:.6},{transform:'rotate(-4deg) scale(1)', opacity:1}],
+    {duration:550, easing:'cubic-bezier(.2,.9,.3,1.4)'});
 });
 const LONG = ['1 month','3 months','6 months','1 year','2 years','5 years','10 years','Forever','∞ INFINITY ∞'];
 function setLong(i){
