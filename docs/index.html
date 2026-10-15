@@ -94,6 +94,11 @@ input:focus-visible,button:focus-visible{outline:3px solid var(--accent-2);outli
 .player{width:220px;aspect-ratio:16/9;border-radius:14px;overflow:hidden;border:2px solid var(--accent);background:var(--card);
   box-shadow:0 12px 30px -12px var(--accent);max-width:100%}
 .player iframe{width:100%;height:100%;border:0;display:block}
+button.player{padding:0;font:inherit;cursor:pointer;display:grid;place-items:center;color:var(--on-accent);
+  background:linear-gradient(135deg,var(--accent-2),var(--accent))}
+.bigplay{font-size:38px;line-height:1;width:70px;height:70px;border-radius:50%;display:grid;place-items:center;padding-left:6px;
+  background:rgba(255,255,255,.22);transition:transform .15s}
+button.player:hover .bigplay{transform:scale(1.1)}
 .np{margin:0;font-weight:800;font-size:12px;color:var(--muted);background:var(--card);padding:3px 10px;border-radius:999px;border:1px solid var(--line)}
 .hitit{display:flex;flex-direction:column;align-items:flex-end;pointer-events:none;transform:rotate(-4deg);animation:nudge 1s ease-in-out infinite}
 .hitit span{font-family:var(--display);font-weight:800;font-size:22px;line-height:1.05;color:var(--accent);letter-spacing:.04em;text-align:right;max-width:9ch}
@@ -206,7 +211,7 @@ main.wrap{position:relative;z-index:1}
         <span>PLAY OUR SONG</span>
         <svg viewBox="0 0 90 60" width="78" height="52"><path d="M6 50 C 26 52, 52 46, 70 16" fill="none" stroke="var(--accent)" stroke-width="4" stroke-linecap="round"/><path d="M58 18 L 72 12 L 74 28" fill="none" stroke="var(--accent)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
-      <div class="pcol"><div class="player" id="player"><iframe id="yt" src="https://www.youtube.com/embed/-5_tGEao_GQ?enablejsapi=1&autoplay=1&loop=1&playlist=-5_tGEao_GQ&playsinline=1&rel=0" title="Kingston by Faye Webster" allow="autoplay; encrypted-media" allowfullscreen></iframe></div><p class="np">♪ Kingston · Faye Webster</p></div>
+      <div class="pcol"><button class="player tap" id="player" type="button" aria-label="Play Kingston by Faye Webster"><span class="bigplay">▶</span></button><p class="np">♪ Kingston · Faye Webster</p></div>
     </aside>
   </header>
 
@@ -336,24 +341,19 @@ function setLike(v, src){
   $('#quip').textContent = q;
   $('#q1').classList.add('done'); update();
 }
-// Background song: tries to autoplay with sound; if the browser blocks that, it starts (unmuted) on her first tap.
-let ytPlayer = null, ytReady = false, wantPlay = false;
-window.onYouTubeIframeAPIReady = function(){
-  ytPlayer = new YT.Player('yt', { events: {
-    onReady: e => { ytReady = true; e.target.unMute(); e.target.setVolume(100); e.target.playVideo(); if (wantPlay) playSong(); },
-    onStateChange: e => { if (e.data === 1 && !ytPlayer.isMuted()) $('#hitit').classList.add('gone'); }
-  }});
-};
-(function(){ const t = document.createElement('script'); t.src = 'https://www.youtube.com/iframe_api'; document.head.appendChild(t); })();
+// Background song: the video loads on her first tap, so the browser lets it play with sound.
+let songOn = false;
 function playSong(){
-  wantPlay = true;
-  if (!ytReady) return;
-  try { ytPlayer.unMute(); ytPlayer.setVolume(100); ytPlayer.playVideo(); } catch (e) {}
+  if (songOn) return; songOn = true;
+  const box = $('#player');
+  const f = document.createElement('iframe');
+  f.src = 'https://www.youtube.com/embed/-5_tGEao_GQ?autoplay=1&loop=1&playlist=-5_tGEao_GQ&playsinline=1&rel=0';
+  f.title = 'Kingston by Faye Webster'; f.allow = 'autoplay; encrypted-media'; f.allowFullscreen = true;
+  box.innerHTML = ''; box.classList.remove('tap'); box.appendChild(f);
   $('#hitit').classList.add('gone');
 }
-['pointerdown','keydown','touchstart'].forEach(ev => document.addEventListener(ev, function first(){
-  ['pointerdown','keydown','touchstart'].forEach(x => document.removeEventListener(x, first, true)); playSong();
-}, true));
+document.addEventListener('pointerdown', function first(){ document.removeEventListener('pointerdown', first, true); playSong(); }, true);
+document.addEventListener('keydown', function firstKey(){ document.removeEventListener('keydown', firstKey, true); playSong(); }, true);
 const LONG = ['1 month','3 months','6 months','1 year','2 years','5 years','10 years','Forever','∞ INFINITY ∞'];
 function setLong(i){
   A.howLong = LONG[i]; $('#longVal').textContent = LONG[i];
