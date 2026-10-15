@@ -166,6 +166,22 @@ button.player:hover .bigplay{transform:scale(1.1)}
 html.theming, html.theming *, html.theming *::before, html.theming *::after{
   transition:background-color .6s ease, color .6s ease, border-color .6s ease, fill .6s ease, box-shadow .6s ease !important}
 @media (max-width:600px){.wrap{padding-top:64px}}
+/* Heartopia question + knuckle sandwich */
+.hq{background:var(--card);border:1.5px dashed var(--accent-2);border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:10px;margin-top:8px}
+.hq h3{margin:0;font-family:var(--display);font-weight:800;font-size:24px;text-wrap:balance}
+.hq .note{margin:0}
+.hq textarea{font:inherit;font-weight:600;font-size:16px;color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:16px;padding:12px 14px;resize:vertical;width:100%}
+.hq-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.deny{font:inherit;font-family:var(--display);font-weight:800;font-size:15px;letter-spacing:.04em;cursor:pointer;background:transparent;color:var(--muted);
+  border:1.5px solid var(--line);border-radius:999px;padding:12px 18px}
+.deny:hover{color:var(--accent);border-color:var(--accent)}
+.hq-status{margin:0;font-weight:700;color:var(--accent);min-height:1.2em}
+.ks{position:fixed;inset:0;z-index:60;overflow:hidden;background:color-mix(in srgb, var(--bg) 40%, transparent)}
+.ks-fist{position:absolute;line-height:1;pointer-events:none;filter:drop-shadow(0 6px 10px rgba(0,0,0,.25))}
+.ks-banner{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%) rotate(-6deg);z-index:2;white-space:nowrap;
+  font-family:var(--display);font-weight:800;font-size:clamp(22px,6.6vw,72px);color:var(--on-accent);background:var(--accent);padding:10px 18px;border-radius:18px;
+  box-shadow:0 20px 50px -16px var(--accent)}
+.ks-close{position:absolute;left:50%;bottom:calc(40px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:3;font-size:17px;padding:14px 22px}
 /* drifting background circles */
 .blobs{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
 .blobs i{position:absolute;border-radius:50%;background:var(--soft);opacity:.9}
@@ -262,7 +278,7 @@ main.wrap{position:relative;z-index:1}
   <header>
     <span class="tag">Official · Confidential · Very serious</span>
     <h1>The <em>Myles</em> Survey</h1>
-    <p class="sub">Fourteen questions. Answer honestly. He will see this.</p>
+    <p class="sub">Fifteen questions. Answer honestly. He will see this.</p>
     <aside class="dock" aria-label="Our song">
       <div class="hitit" id="hitit" aria-hidden="true">
         <span>PLAY OUR SONG</span>
@@ -366,8 +382,13 @@ main.wrap{position:relative;z-index:1}
     <div class="choices four"><button class="choice" data-v="Never" aria-pressed="false">Never 😇</button><button class="choice" data-v="Sometimes" aria-pressed="false">Sometimes</button><button class="choice" data-v="Decent amount" aria-pressed="false">Decent amount</button><button class="choice" data-v="Always" aria-pressed="false">Always 😈</button></div>
   </section>
 
+  <section class="q" data-key="adore">
+    <div class="qhead"><span class="qn">14</span><h2 class="qt">Do you adore him?</h2></div>
+    <div class="choices"><button class="choice" data-v="Yes" aria-pressed="false">Yes 🥹</button><button class="choice" data-v=".. ok" aria-pressed="false">.. ok</button></div>
+  </section>
+
   <section class="q" id="q6">
-    <div class="qhead"><span class="qn">14</span><h2 class="qt">If you saw him walking, how many kisses would you give him?</h2></div>
+    <div class="qhead"><span class="qn">15</span><h2 class="qt">If you saw him walking, how many kisses would you give him?</h2></div>
     <div class="kiss">
       <button class="step" id="minus" aria-label="One fewer kiss">−</button>
       <input type="number" id="kisses" min="0" max="9999" placeholder="?" aria-label="Number of kisses">
@@ -380,11 +401,11 @@ main.wrap{position:relative;z-index:1}
 
 <div class="bar" id="bar"><div class="bar-in">
   <div class="prog" aria-hidden="true"><i id="progFill"></i></div>
-  <button class="submit" id="submit" disabled>14 left to answer</button>
+  <button class="submit" id="submit" disabled>15 left to answer</button>
 </div></div>
 
 <script>
-const A = { like: 50, likeLevel:null, sweetness:null, moreDates:null, singing:null, disturbing:null, backrooms:null, heartopia:null, howLong:null, hair:null, boyfriend:null, nuts:null, violence:null, kisses:null };
+const A = { like: 50, likeLevel:null, sweetness:null, moreDates:null, singing:null, disturbing:null, backrooms:null, heartopia:null, howLong:null, hair:null, boyfriend:null, nuts:null, violence:null, adore:null, kisses:null };
 let touchedLike = false;
 const $ = s => document.querySelector(s);
 const quips = [[1,"Ouch. Okay."],[20,"Room to grow."],[40,"Hmm. Neutral. Suspicious."],[60,"Ooh, a fan."],[80,"Big fan behavior."],[95,"Obsessed. Noted."],[100,"Maximum love unlocked 💖"]];
@@ -477,7 +498,7 @@ $('#plus').addEventListener('click', () => setKiss((A.kisses ?? 0) + 1));
 $('#minus').addEventListener('click', () => setKiss(Math.max(0, (A.kisses ?? 1) - 1)));
 
 function update(){
-  const req = [touchedLike, A.likeLevel, A.sweetness, A.moreDates, A.disturbing, A.singing, A.backrooms, A.heartopia, A.howLong, A.hair, A.boyfriend, A.nuts, A.violence, A.kisses !== null];
+  const req = [touchedLike, A.likeLevel, A.sweetness, A.moreDates, A.disturbing, A.singing, A.backrooms, A.heartopia, A.howLong, A.hair, A.boyfriend, A.nuts, A.violence, A.adore, A.kisses !== null];
   const n = req.filter(Boolean).length;
   $('#progFill').style.width = (n/req.length*100) + '%';
   const left = req.length - n;
@@ -486,7 +507,7 @@ function update(){
 }
 
 const labels = [["like","How much she likes Myles", v => v + " / 100"],["likeLevel","How much she likes him"],["sweetness","Sweetness", v => v + " / 10"],["moreDates","More dates?"],["disturbing","Thinks he's disturbing?"],
-  ["singing","Is his singing annoying?"],["backrooms","Escape the Backrooms together?"],["heartopia","Heartopia duo?"],["howLong","How long she wants to date him"],["hair","Playing with his hair"],["boyfriend","His boyfriend behavior"],["nuts","These nuts"],["violence","Violence rate"],["kisses","Kisses on sight", v => v]];
+  ["singing","Is his singing annoying?"],["backrooms","Escape the Backrooms together?"],["heartopia","Heartopia duo?"],["howLong","How long she wants to date him"],["hair","Playing with his hair"],["boyfriend","His boyfriend behavior"],["nuts","These nuts"],["violence","Violence rate"],["adore","Adores him?"],["kisses","Kisses on sight", v => v]];
 function receipt(r){
   return '<div class="receipt">' + labels.map(([k, l, f]) => `<div><span>${l}</span><b>${esc(f ? f(r[k]) : r[k])}</b></div>`).join('') + '</div>';
 }
@@ -608,6 +629,7 @@ function report(r, saved){
       <section class="tile"><span class="lbl">Violence rate</span><strong>${esc(r.violence)}</strong>${meter(r.violence, ['Never','Sometimes','Decent amount','Always'])}</section>
       <section class="tile"><span class="lbl">Playing with his hair</span><strong>${esc(r.hair)}</strong>${meter(r.hair, ['Unsatisfied','Satisfied','Very satisfied'])}</section>
       <section class="tile"><span class="lbl">Boyfriend behavior</span><strong>${esc(r.boyfriend)}</strong>${meter(r.boyfriend, ['Very unsatisfied','Standard','Very satisfied'])}</section>
+      <section class="tile wide"><span class="lbl">Do you adore him?</span><b class="chip ${r.adore === 'Yes' ? 'yes' : 'no'}">${esc(r.adore)}</b><span class="sweet">${r.adore === 'Yes' ? 'She adores him. He is melting into the floor 🫠' : '.. ok. He will take it.'}</span></section>
       <section class="tile wide"><span class="lbl">These nuts 🥜</span><strong>${esc(r.nuts)}</strong>${meter(r.nuts, ['Unsatisfied','Satisfied','Very satisfied'])}</section>
     </div>
 
@@ -621,7 +643,35 @@ function report(r, saved){
       ? '<p class="sent">✓ Delivered to Myles</p>'
       : '<p class="note">Last step: screenshot this report or tap copy, then text it to Myles. He is waiting nervously.</p><button class="submit" id="copy">Copy my answers 💌</button>'}
     <button class="ghost" id="again">Explode it again 💥</button>
+
+    <section class="hq" id="hq">
+      <h3>Tell him your Heartopia question?! 🌷</h3>
+      <p class="note">Optional. Ask him anything.</p>
+      <textarea id="hqText" rows="3" maxlength="800" placeholder="Type your question for Myles…"></textarea>
+      <div class="hq-actions">
+        <button class="submit" id="hqSend" type="button">Send my question 💌</button>
+        <button class="deny" id="hqDeny" type="button">NOT YET / DENY</button>
+      </div>
+      <p class="hq-status" id="hqStatus" aria-live="polite"></p>
+    </section>
   </div>`;
+}
+
+// NOT YET / DENY → knuckle sandwiches everywhere
+function knuckleSandwich(){
+  let layer = document.createElement('div'); layer.className = 'ks'; document.body.appendChild(layer);
+  const W = innerWidth, H = innerHeight, N = reduceMotion ? 24 : 90;
+  const banner = document.createElement('div'); banner.className = 'ks-banner'; banner.textContent = 'KNUCKLE SANDWICH 👊'; layer.appendChild(banner);
+  for (let i = 0; i < N; i++) setTimeout(() => {
+    const f = document.createElement('span'); f.className = 'ks-fist'; f.textContent = i % 7 === 0 ? '🥪' : '👊';
+    f.style.left = rnd(-4, 96) + '%'; f.style.top = rnd(-4, 92) + '%'; f.style.fontSize = rnd(34, 96) + 'px';
+    layer.appendChild(f);
+    if (!reduceMotion) f.animate([{transform:`scale(3) rotate(${rnd(-90,90)}deg)`, opacity:0},{transform:`scale(.85) rotate(${rnd(-25,25)}deg)`, opacity:1, offset:.5},{transform:`scale(1) rotate(${rnd(-20,20)}deg)`, opacity:1}], {duration:380, easing:'ease-out', fill:'forwards'});
+  }, reduceMotion ? 0 : i * 28);
+  if (!reduceMotion) document.body.animate([{transform:'translate(0,0)'},{transform:'translate(-8px,4px)'},{transform:'translate(8px,-4px)'},{transform:'translate(-5px,-3px)'},{transform:'translate(0,0)'}], {duration:120, iterations:14});
+  const close = document.createElement('button'); close.className = 'ghost ks-close'; close.textContent = 'Okay okay, I’ll ask 😭';
+  close.addEventListener('click', () => { layer.remove(); $('#hqText') && $('#hqText').focus(); });
+  setTimeout(() => layer.appendChild(close), reduceMotion ? 0 : N * 28 + 300);
 }
 
 $('#submit').addEventListener('click', async () => {
@@ -654,6 +704,21 @@ $('#submit').addEventListener('click', async () => {
   if (!reduceMotion) document.querySelectorAll('.report > *, .tiles > *').forEach((el, i) =>
     el.animate([{opacity:0, transform:'translateY(18px) scale(.97)'},{opacity:1, transform:'none'}], {duration:450, delay:i*55, easing:'cubic-bezier(.2,.9,.3,1.1)', fill:'backwards'}));
   $('#again').addEventListener('click', explode);
+  $('#hqSend').addEventListener('click', async () => {
+    const q = $('#hqText').value.trim(), st = $('#hqStatus'), b = $('#hqSend');
+    if (!q) { st.textContent = 'Type a question first, or hit deny 👀'; return; }
+    b.disabled = true; b.textContent = 'Sending…';
+    let ok = false;
+    try {
+      const r = await fetch('https://formsubmit.co/ajax/mylesn760@gmail.com', { method:'POST',
+        headers:{'Content-Type':'application/json','Accept':'application/json'},
+        body: JSON.stringify({ _subject:'🌷 Her Heartopia question for you', _template:'table', _captcha:'false', 'Her question': q, 'Sent': new Date().toLocaleString() }) });
+      const j = await r.json().catch(() => ({})); ok = r.ok && String(j.success) === 'true';
+    } catch (e) {}
+    if (ok) { $('#hq').innerHTML = '<h3>Question sent 🌷</h3><p class="note">Myles has it. Expect an answer soon.</p>'; }
+    else { b.disabled = false; b.textContent = 'Send my question 💌'; st.textContent = 'That didn’t send. Screenshot it and text it to him instead.'; }
+  });
+  $('#hqDeny').addEventListener('click', knuckleSandwich);
   const text = '💌 My Myles Survey answers\n' + labels.map(([k,l,f]) => `${l}: ${f ? f(row[k]) : row[k]}`).join('\n');
   const c = $('#copy');
   if (c) c.addEventListener('click', async () => {
