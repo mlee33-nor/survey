@@ -32,7 +32,7 @@ body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16p
   padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));
   display:flex;flex-direction:column;gap:18px}
 
-header{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+header{position:relative;display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
 .tag{align-self:flex-start;font-weight:800;font-size:12px;letter-spacing:.12em;text-transform:uppercase;
   color:var(--accent);background:var(--soft);padding:6px 12px;border-radius:999px}
 h1{font-family:var(--display);font-weight:800;font-size:clamp(38px,9vw,56px);line-height:.98;margin:0;letter-spacing:-.02em;text-wrap:balance}
@@ -89,20 +89,19 @@ input:focus-visible,button:focus-visible{outline:3px solid var(--accent-2);outli
 .q.inf{animation:quake .09s linear infinite;border-color:var(--accent);box-shadow:0 0 0 4px var(--soft),0 0 40px -6px var(--accent)}
 .q.inf .hl-val{animation:quake .07s linear infinite reverse;font-size:clamp(52px,14vw,76px)}
 @keyframes quake{0%{transform:translate(0,0) rotate(0)}20%{transform:translate(-4px,2px) rotate(-1.5deg)}40%{transform:translate(4px,-3px) rotate(1.5deg)}60%{transform:translate(-3px,-2px) rotate(-1deg)}80%{transform:translate(3px,3px) rotate(1deg)}100%{transform:translate(0,0) rotate(0)}}
-.dock{position:fixed;z-index:20;top:calc(12px + env(safe-area-inset-top,0px));right:calc(12px + env(safe-area-inset-right,0px));
-  display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.dock{display:flex;align-items:center;gap:10px;margin-top:10px}
+.pcol{display:flex;flex-direction:column;align-items:flex-start;gap:6px;flex:none}
 .player{width:220px;aspect-ratio:16/9;border-radius:14px;overflow:hidden;border:2px solid var(--accent);background:var(--card);
   box-shadow:0 12px 30px -12px var(--accent);max-width:100%}
 .player iframe{width:100%;height:100%;border:0;display:block}
 .np{margin:0;font-weight:800;font-size:12px;color:var(--muted);background:var(--card);padding:3px 10px;border-radius:999px;border:1px solid var(--line)}
-.hitit{position:absolute;right:100%;top:30px;margin-right:4px;display:flex;flex-direction:column;align-items:flex-end;pointer-events:none;
-  transform:rotate(-6deg);animation:nudge 1s ease-in-out infinite}
-.hitit span{font-family:var(--display);font-weight:800;font-size:26px;color:var(--accent);letter-spacing:.04em;white-space:nowrap;
-  text-shadow:0 2px 0 var(--card)}
-.hitit.gone{display:none}
-@keyframes nudge{0%,100%{transform:rotate(-6deg) translate(0,0)}50%{transform:rotate(-6deg) translate(6px,-4px)}}
-.wrap{padding-top:150px}
-@media (max-width:720px){.player{width:160px}.hitit span{font-size:20px}.hitit svg{width:60px;height:40px}.hitit{top:16px}}
+.hitit{display:flex;flex-direction:column;align-items:flex-end;pointer-events:none;transform:rotate(-4deg);animation:nudge 1s ease-in-out infinite}
+.hitit span{font-family:var(--display);font-weight:800;font-size:22px;line-height:1.05;color:var(--accent);letter-spacing:.04em;text-align:right;max-width:9ch}
+.hitit svg{transform:scaleY(-1) rotate(8deg)}
+.hitit.gone{visibility:hidden;animation:none}
+@keyframes nudge{0%,100%{transform:rotate(-4deg) translate(0,0)}50%{transform:rotate(-4deg) translate(6px,0)}}
+@media (min-width:1120px){.dock{position:absolute;left:calc(100% + 24px);top:34px;margin:0}}
+@media (max-width:480px){.player{width:180px}.hitit span{font-size:18px}.hitit svg{width:56px;height:38px}}
 .choice[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent);transform:scale(1.02)}
 
 /* kisses */
@@ -141,20 +140,18 @@ input:focus-visible,button:focus-visible{outline:3px solid var(--accent-2);outli
 @keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.12)}100%{transform:scale(1)}}
 </style>
 </head><body>
-<aside class="dock" aria-label="Our song">
-  <div class="hitit" id="hitit" aria-hidden="true">
-    <span>HIT IT</span>
-    <svg viewBox="0 0 90 60" width="78" height="52"><path d="M6 50 C 26 52, 52 46, 70 16" fill="none" stroke="var(--accent)" stroke-width="4" stroke-linecap="round"/><path d="M58 18 L 72 12 L 74 28" fill="none" stroke="var(--accent)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-  </div>
-  <div class="player" id="player"><iframe id="yt" src="https://www.youtube.com/embed/-5_tGEao_GQ?enablejsapi=1&loop=1&playlist=-5_tGEao_GQ&playsinline=1&rel=0" title="Kingston by Faye Webster" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
-  <p class="np">♪ Kingston · Faye Webster</p>
-</aside>
-
 <main class="wrap" id="app">
   <header>
     <span class="tag">Official · Confidential · Very serious</span>
     <h1>The <em>Myles</em> Survey</h1>
     <p class="sub">Fourteen questions. Answer honestly. He will see this.</p>
+    <aside class="dock" aria-label="Our song">
+      <div class="hitit" id="hitit" aria-hidden="true">
+        <span>PLAY OUR SONG</span>
+        <svg viewBox="0 0 90 60" width="78" height="52"><path d="M6 50 C 26 52, 52 46, 70 16" fill="none" stroke="var(--accent)" stroke-width="4" stroke-linecap="round"/><path d="M58 18 L 72 12 L 74 28" fill="none" stroke="var(--accent)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="pcol"><div class="player" id="player"><iframe id="yt" src="https://www.youtube.com/embed/-5_tGEao_GQ?enablejsapi=1&autoplay=1&mute=1&loop=1&playlist=-5_tGEao_GQ&playsinline=1&rel=0" title="Kingston by Faye Webster" allow="autoplay; encrypted-media" allowfullscreen></iframe></div><p class="np">♪ Kingston · Faye Webster</p></div>
+    </aside>
   </header>
 
 
@@ -285,7 +282,8 @@ function setLike(v, src){
 }
 // Background song: tap the player (or anywhere) to start "Kingston".
 function playSong(){
-  try { $('#yt').contentWindow.postMessage(JSON.stringify({event:'command', func:'playVideo', args:[]}), '*'); } catch (e) {}
+  const send = func => { try { $('#yt').contentWindow.postMessage(JSON.stringify({event:'command', func, args:[]}), '*'); } catch (e) {} };
+  send('unMute'); send('playVideo');
   $('#hitit').classList.add('gone');
 }
 document.addEventListener('pointerdown', function first(e){ document.removeEventListener('pointerdown', first); playSong(); });
