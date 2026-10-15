@@ -1,6 +1,6 @@
 # The Myles Survey 💌
 
-A cute six-question survey about Myles. Anyone with the link can answer, and every answer is saved for Myles to read.
+A cute survey about Myles. Anyone with the link can answer, and every answer is saved for Myles to read.
 
 ## Deploy on Railway
 

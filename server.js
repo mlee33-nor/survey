@@ -37,13 +37,18 @@ async function list() {
 }
 
 const YN = v => (v === 'Yes' || v === 'No' ? v : null);
+const ONE_OF = list => v => (list.includes(v) ? v : null);
+const LONG = ONE_OF(['1 month','3 months','6 months','1 year','2 years','5 years','10 years','Forever','∞ INFINITY ∞']);
+const SAT = ONE_OF(['Unsatisfied','Satisfied','Very satisfied']);
+const BF = ONE_OF(['Very unsatisfied','Standard','Very satisfied']);
+const VIOL = ONE_OF(['Never','Sometimes','Decent amount','Always']);
 function clean(b) {
   const like = Math.round(Number(b.like));
   const kisses = Math.round(Number(b.kisses));
   const sweetness = Math.round(Number(b.sweetness));
   if (!(sweetness >= 1 && sweetness <= 10)) return null;
   if (!(like >= 1 && like <= 100) || !(kisses >= 0 && kisses <= 9999)) return null;
-  const row = { like, sweetness, moreDates: YN(b.moreDates), singing: YN(b.singing), disturbing: YN(b.disturbing), backrooms: YN(b.backrooms), heartopia: YN(b.heartopia), kisses };
+  const row = { like, sweetness, moreDates: YN(b.moreDates), singing: YN(b.singing), disturbing: YN(b.disturbing), backrooms: YN(b.backrooms), heartopia: YN(b.heartopia), howLong: LONG(b.howLong), hair: SAT(b.hair), boyfriend: BF(b.boyfriend), nuts: SAT(b.nuts), violence: VIOL(b.violence), kisses };
   if (Object.values(row).some(v => v === null)) return null;
   row.at = new Date().toISOString();
   return row;
@@ -61,6 +66,11 @@ function resultsPage(rows) {
     <div><span>Thinks he's disturbing?</span><b>${esc(r.disturbing)}</b></div>
     <div><span>Escape the Backrooms together?</span><b>${esc(r.backrooms)}</b></div>
     <div><span>Heartopia duo?</span><b>${esc(r.heartopia)}</b></div>
+    <div><span>How long she wants to date him</span><b>${esc(r.howLong)}</b></div>
+    <div><span>Playing with his hair</span><b>${esc(r.hair)}</b></div>
+    <div><span>His boyfriend behavior</span><b>${esc(r.boyfriend)}</b></div>
+    <div><span>These nuts</span><b>${esc(r.nuts)}</b></div>
+    <div><span>Violence rate</span><b>${esc(r.violence)}</b></div>
     <div><span>Kisses on sight</span><b>${esc(r.kisses)}</b></div></div>`;
   return `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Myles Survey Results</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@800&family=Nunito:wght@600;800&display=swap">
