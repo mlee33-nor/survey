@@ -4,21 +4,21 @@
 <title>The Allison Survey</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💌</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@500;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&family=Nunito:wght@500;600;700;800&display=swap">
 <style>
 /* Layout: one narrow column of soft question cards, a giant heart score up top, sticky submit */
 :root{
-  --bg:#fff6e6; --card:#fffdf6; --ink:#3b2a1e; --muted:#7d6a58;
-  --line:#ecd9b8; --accent:#ff6f61; --accent-2:#ffab91; --soft:#ffeccc; --on-accent:#ffffff;
-  --display:"Fredoka", "Avenir Next", system-ui, sans-serif;
+  --bg:#fdf2ee; --card:#fffaf8; --ink:#34507f; --muted:#7d8fb3;
+  --line:#cfe2fb; --accent:#ff7fa8; --accent-2:#ffc2d4; --soft:#ffe6ef; --on-accent:#ffffff;
+  --display:"Quicksand", "Avenir Next", system-ui, sans-serif;
   --body:"Nunito", "Segoe UI", system-ui, sans-serif;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#16213f; --card:#22305a; --ink:#fff4e4; --muted:#b4bfdc;
-  --line:#34467a; --accent:#ff7f6e; --accent-2:#ffb39e; --soft:#2b3b6b; --on-accent:#ffffff; color-scheme:dark}}
+  --bg:#131a30; --card:#1d2744; --ink:#e8f0ff; --muted:#9fb0d6;
+  --line:#2f3f6a; --accent:#ff8fb3; --accent-2:#7a3e5c; --soft:#33264a; --on-accent:#ffffff; color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#16213f; --card:#22305a; --ink:#fff4e4; --muted:#b4bfdc;
-  --line:#34467a; --accent:#ff7f6e; --accent-2:#ffb39e; --soft:#2b3b6b; --on-accent:#ffffff; color-scheme:dark}
+  --bg:#131a30; --card:#1d2744; --ink:#e8f0ff; --muted:#9fb0d6;
+  --line:#2f3f6a; --accent:#ff8fb3; --accent-2:#7a3e5c; --soft:#33264a; --on-accent:#ffffff; color-scheme:dark}
 
 *{box-sizing:border-box}
 html{padding-top:env(safe-area-inset-top,0px)}
@@ -307,68 +307,116 @@ main.wrap{position:relative;z-index:1}
 @media (max-width:420px){.tiles{grid-template-columns:1fr}.rep-hero{flex-direction:column;text-align:center}.rep-hero-txt{align-items:center}}
 @media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}.q.inf{animation:quake .3s linear infinite!important}}
 
-/* ===== Heartopia theme ===== */
-:root{--wood:#c48a57;--wood-dk:#8f5a32;--grass:#6cc04a;--grass-dk:#3f8f2a;--sky-1:#8fd3ff;--sky-2:#dff3ff;--cloud:#ffffff}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--wood:#8a6a52;--wood-dk:#4f3a2b;--grass:#4f9e3b;--grass-dk:#2c6420;--sky-1:#0b1530;--sky-2:#1d3264;--cloud:#c9d6ff}}
-:root[data-theme="dark"]{--wood:#8a6a52;--wood-dk:#4f3a2b;--grass:#4f9e3b;--grass-dk:#2c6420;--sky-1:#0b1530;--sky-2:#1d3264;--cloud:#c9d6ff}
-body{background:linear-gradient(180deg,var(--sky-1) 0%,var(--sky-2) 55%,var(--bg) 100%) fixed;background-color:var(--bg)}
-/* clouds instead of blobs */
-.blobs i{background:var(--cloud);border-radius:999px;opacity:.75;height:46px!important}
-.blobs i::before,.blobs i::after{content:"";position:absolute;background:inherit;border-radius:50%}
-.blobs i::before{width:56%;height:150%;left:14%;top:-70%}
-.blobs i::after{width:40%;height:120%;right:12%;top:-45%}
-.blobs i:nth-child(1){width:170px;left:-20px;top:70px}
-.blobs i:nth-child(2){width:130px;top:28%}
-.blobs i:nth-child(3){width:200px;top:62%;opacity:.55}
-.blobs i:nth-child(4){width:110px;bottom:20%}
-.blobs i:nth-child(5){width:90px;top:46%;opacity:.5}
-.blobs::after{content:"";position:absolute;left:-10%;right:-10%;bottom:-60px;height:140px;border-radius:50% 50% 0 0;
-  background:radial-gradient(ellipse at 50% 0,var(--grass),var(--grass-dk));opacity:.9}
-/* stars at night */
+/* ===== Heartopia profile-card theme ===== */
+:root{--blue:#4a8fe0;--blue-2:#a9d0fa;--blue-dk:#2f6cc0;--sun:#ffd25e;--grid:rgba(74,143,224,.09);--pink-dk:#e0608b;
+  --corners:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cg transform='rotate(0 20 20)'%3E%3Cpath d='M5 35V12a7 7 0 0 1 7-7h23' fill='none' stroke='%23ffd25e' stroke-width='7' stroke-linecap='round'/%3E%3Cpath d='M14 7l6 6-6 6-6-6z' fill='%234a8fe0' stroke='white' stroke-width='1.6'/%3E%3C/g%3E%3C/svg%3E"),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cg transform='rotate(90 20 20)'%3E%3Cpath d='M5 35V12a7 7 0 0 1 7-7h23' fill='none' stroke='%23ffd25e' stroke-width='7' stroke-linecap='round'/%3E%3Cpath d='M14 7l6 6-6 6-6-6z' fill='%234a8fe0' stroke='white' stroke-width='1.6'/%3E%3C/g%3E%3C/svg%3E"),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cg transform='rotate(270 20 20)'%3E%3Cpath d='M5 35V12a7 7 0 0 1 7-7h23' fill='none' stroke='%23ffd25e' stroke-width='7' stroke-linecap='round'/%3E%3Cpath d='M14 7l6 6-6 6-6-6z' fill='%234a8fe0' stroke='white' stroke-width='1.6'/%3E%3C/g%3E%3C/svg%3E"),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cg transform='rotate(180 20 20)'%3E%3Cpath d='M5 35V12a7 7 0 0 1 7-7h23' fill='none' stroke='%23ffd25e' stroke-width='7' stroke-linecap='round'/%3E%3Cpath d='M14 7l6 6-6 6-6-6z' fill='%234a8fe0' stroke='white' stroke-width='1.6'/%3E%3C/g%3E%3C/svg%3E")}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--blue:#6ea8ff;--blue-2:#34508a;--blue-dk:#22407a;--grid:rgba(140,180,255,.07);--pink-dk:#b8456d}}
+:root[data-theme="dark"]{--blue:#6ea8ff;--blue-2:#34508a;--blue-dk:#22407a;--grid:rgba(140,180,255,.07);--pink-dk:#b8456d}
+/* grid paper */
+body{background-color:var(--bg);
+  background-image:linear-gradient(var(--grid) 1.5px,transparent 1.5px),linear-gradient(90deg,var(--grid) 1.5px,transparent 1.5px);
+  background-size:30px 30px;background-attachment:fixed}
+/* floating stickers instead of blobs */
+.blobs i{background:none;width:auto!important;height:auto!important;opacity:.85;font-size:34px;line-height:1}
+.blobs i::before{display:block}
+.blobs i:nth-child(1){left:4%;top:12%}.blobs i:nth-child(1)::before{content:"🎈"}
+.blobs i:nth-child(2){right:4%;top:30%}.blobs i:nth-child(2)::before{content:"🌷"}
+.blobs i:nth-child(3){left:2%;top:64%;font-size:28px}.blobs i:nth-child(3)::before{content:"🦋"}
+.blobs i:nth-child(4){right:6%;bottom:12%;font-size:30px}.blobs i:nth-child(4)::before{content:"☁️"}
+.blobs i:nth-child(5){left:48%;top:42%;font-size:22px;opacity:.5}.blobs i:nth-child(5)::before{content:"⭐"}
 .stars{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0;transition:opacity .6s;
   background-image:radial-gradient(2px 2px at 12% 18%,#fff,transparent),radial-gradient(1.5px 1.5px at 30% 8%,#fff,transparent),radial-gradient(2px 2px at 55% 22%,#fff,transparent),
   radial-gradient(1.5px 1.5px at 72% 12%,#fff,transparent),radial-gradient(2px 2px at 88% 30%,#fff,transparent),radial-gradient(1.5px 1.5px at 20% 40%,#fff,transparent),
   radial-gradient(1.5px 1.5px at 64% 44%,#fff,transparent),radial-gradient(2px 2px at 92% 6%,#fff,transparent),radial-gradient(1.5px 1.5px at 42% 34%,#fff,transparent)}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .stars{opacity:.9}}
-:root[data-theme="dark"] .stars{opacity:.9}
-/* banner */
-.banner{margin:0;border-radius:22px;overflow:hidden;border:4px solid var(--card);box-shadow:0 6px 0 var(--wood),0 18px 30px -14px rgba(20,60,110,.5)}
-.banner img{display:block;width:100%;height:auto}
-.tag{background:var(--card);color:var(--ink);border:2px solid var(--wood);box-shadow:0 3px 0 var(--wood)}
-h1{font-weight:700;color:#fff;letter-spacing:.01em;
-  text-shadow:0 3px 0 #2e7fd1,3px 0 0 #2e7fd1,-3px 0 0 #2e7fd1,0 -3px 0 #2e7fd1,2px 2px 0 #2e7fd1,-2px 2px 0 #2e7fd1,2px -2px 0 #2e7fd1,-2px -2px 0 #2e7fd1,0 8px 0 rgba(20,60,110,.25)}
-h1 em{color:#ffd166}
-.sub{color:var(--ink);background:color-mix(in srgb,var(--card) 70%,transparent);align-self:flex-start;padding:4px 12px;border-radius:12px}
-/* quest cards: cream paper in a wooden frame */
-.q{background:var(--card);border:3px solid var(--wood);border-radius:22px;box-shadow:0 6px 0 var(--wood-dk),0 18px 28px -18px rgba(40,30,10,.45)}
-.q.done{border-color:var(--grass);box-shadow:0 6px 0 var(--grass-dk),0 18px 28px -18px rgba(40,30,10,.45)}
-.qhead{flex-direction:column;gap:8px;align-items:flex-start}
-.qn{font-size:12px;letter-spacing:.12em;color:#fff;background:var(--wood);border-radius:8px;padding:3px 10px;box-shadow:0 3px 0 var(--wood-dk);min-width:0}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .stars{opacity:.8}}
+:root[data-theme="dark"] .stars{opacity:.8}
+
+/* the stitched frame: thick blue border, dashed stitching inside, yellow corners */
+.frame,.q,.idcard{position:relative;background-color:var(--card);border:4px solid var(--blue);border-radius:22px;
+  outline:2px dashed var(--blue-2);outline-offset:-13px;box-shadow:0 8px 0 var(--blue-2),0 26px 40px -28px rgba(47,108,192,.6)}
+.q::before,.idcard::before{content:"";position:absolute;inset:-11px;pointer-events:none;z-index:1;
+  background:var(--corners);background-repeat:no-repeat;background-size:34px 34px;
+  background-position:left top,right top,left bottom,right bottom}
+.q{padding:30px 26px 26px}
+.q.done{border-color:var(--accent);outline-color:var(--accent-2);box-shadow:0 8px 0 var(--accent-2),0 26px 40px -28px rgba(224,96,139,.6)}
+
+/* header: a Heartopia player card for the survey */
+header{margin-bottom:16px}
+.idcard{margin-top:26px;padding:34px 28px 30px;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:18px 18px}
+.ears{position:absolute;top:-38px;right:96px;display:flex;gap:16px}
+.ears i{width:38px;height:40px;background:var(--blue-2);border:4px solid var(--blue);border-bottom:none;border-radius:20px 20px 0 0}
+.idcard .badge{display:inline-block;font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:.14em;color:var(--on-accent);
+  background:var(--accent);padding:5px 14px;border-radius:999px;box-shadow:0 3px 0 var(--pink-dk);transform:rotate(-2deg)}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(44px,12vw,68px);line-height:.95;margin:14px 0 18px;color:var(--blue);letter-spacing:-.01em;
+  text-shadow:3px 3px 0 var(--card),-3px 3px 0 var(--card),3px -3px 0 var(--card),-3px -3px 0 var(--card),0 7px 0 var(--blue-2)}
+h1 em{color:var(--accent);display:block;font-size:1.12em;text-shadow:3px 3px 0 var(--card),-3px 3px 0 var(--card),3px -3px 0 var(--card),-3px -3px 0 var(--card),0 7px 0 var(--accent-2)}
+.facts{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.facts li{font-family:var(--display);font-weight:700;font-size:19px;color:var(--ink)}
+.facts li::before{content:"♥";color:var(--blue);margin-right:8px}
+.facts b{color:var(--accent);font-weight:700}
+.stk{position:absolute;z-index:2;line-height:1;pointer-events:none;filter:drop-shadow(0 4px 4px rgba(47,108,192,.25))}
+.stk.b1{top:-30px;left:20px;font-size:46px;transform:rotate(-12deg);animation:bob 3.2s ease-in-out infinite}
+.stk.b2{top:-14px;left:62px;font-size:34px;transform:rotate(10deg);animation:bob 2.6s ease-in-out infinite reverse}
+.stk.fl{right:-10px;bottom:-16px;font-size:48px;transform:rotate(12deg)}
+.stk.sp{right:30%;top:22px;font-size:22px;animation:twinkle 1.6s ease-in-out infinite}
+@keyframes bob{0%,100%{translate:0 0}50%{translate:0 -8px}}
+@keyframes twinkle{0%,100%{opacity:.3;scale:.8}50%{opacity:1;scale:1.1}}
+
+/* hanging tag for the question number */
+.qhead{flex-direction:column;gap:12px;align-items:flex-start}
+.qn{position:relative;font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:.1em;min-width:0;color:var(--blue-dk);
+  padding:5px 12px;border-radius:9px;border:2px solid var(--blue);margin-top:4px;
+  background-color:var(--card);background-image:linear-gradient(90deg,rgba(74,143,224,.14) 50%,transparent 50%),linear-gradient(rgba(74,143,224,.14) 50%,transparent 50%);background-size:12px 12px}
 .qn::before{content:"QUEST "}
-.q.done .qn{background:var(--grass);box-shadow:0 3px 0 var(--grass-dk)}
-.q.done .qn::after{content:" ✓"}
-.qt{font-size:22px}
-/* chunky game buttons */
-.choice{border:2px solid var(--line);box-shadow:0 4px 0 var(--line);border-radius:14px;background:var(--bg)}
-.choice:hover{transform:translateY(-2px);box-shadow:0 6px 0 var(--line)}
-.choice[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);box-shadow:0 4px 0 color-mix(in srgb,var(--accent) 60%,#000);transform:translateY(0)}
-.submit{background:var(--grass);box-shadow:0 5px 0 var(--grass-dk),0 12px 22px -10px var(--grass-dk);text-shadow:0 1px 0 rgba(0,0,0,.2)}
-.submit:active{transform:translateY(3px);box-shadow:0 2px 0 var(--grass-dk)}
-.ghost{background:var(--card);color:var(--ink);border:2px solid var(--wood);box-shadow:0 3px 0 var(--wood)}
-.step{box-shadow:0 3px 0 var(--line)}
-input[type=number],textarea.fill,.hq textarea{border-width:2px}
-/* stamina-style progress bar */
-.prog{height:16px;background:var(--card);border:3px solid var(--wood);box-shadow:0 3px 0 var(--wood-dk)}
-.prog i{background:linear-gradient(90deg,#ff9e7a,var(--accent))}
-/* photo frames */
-.photo{border:4px solid var(--card);background:var(--card);box-shadow:0 6px 0 var(--wood),0 18px 30px -16px rgba(40,30,10,.5);padding:6px 6px 10px}
-.photo figcaption{color:var(--ink)}
-.tile,.rep-hero,.receipt,.letter,.hq,.words blockquote{border:3px solid var(--wood);box-shadow:0 5px 0 var(--wood-dk)}
-.letter{background:var(--card)}
-.player{border:3px solid var(--wood);box-shadow:0 5px 0 var(--wood-dk)}
-.theme{border:2px solid var(--wood);box-shadow:0 3px 0 var(--wood)}
+.qn::after{content:"";position:absolute;top:-9px;left:50%;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:var(--blue);border:2px solid var(--card)}
+.q.done .qn{color:var(--on-accent);background:var(--accent);border-color:var(--accent)}
+.q.done .qn::after{background:var(--accent)}
+.q.done .qn::before{content:"✓ QUEST "}
+.qt{font-family:var(--display);font-size:23px;font-weight:700;color:var(--ink)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .qn{color:var(--ink)}}
+:root[data-theme="dark"] .qn{color:var(--ink)}
+
+/* gingham tag buttons */
+.choice{font-family:var(--display);font-weight:700;border:2px solid var(--blue-2);border-radius:14px;color:var(--ink);
+  background-color:var(--card);background-image:linear-gradient(90deg,var(--grid) 50%,transparent 50%),linear-gradient(var(--grid) 50%,transparent 50%);background-size:14px 14px;
+  box-shadow:0 4px 0 var(--blue-2)}
+.choice:hover{border-color:var(--blue);transform:translateY(-2px);box-shadow:0 6px 0 var(--blue-2)}
+.choice[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent);box-shadow:0 4px 0 var(--pink-dk);transform:translateY(0)}
+.submit{font-family:var(--display);font-weight:700;background:var(--blue);box-shadow:0 5px 0 var(--blue-dk),0 14px 24px -12px var(--blue-dk)}
+.submit:active{transform:translateY(3px);box-shadow:0 2px 0 var(--blue-dk)}
+.ghost{font-family:var(--display);font-weight:700;background:var(--card);color:var(--blue-dk);border:2px solid var(--blue);box-shadow:0 3px 0 var(--blue-2)}
+.step{background:var(--card);color:var(--blue);border:2px solid var(--blue-2);box-shadow:0 3px 0 var(--blue-2)}
+.step:hover{background:var(--blue);color:#fff}
+input[type=number],textarea.fill,.hq textarea{border:2px solid var(--blue-2);background:var(--bg)}
+input[type=range]{accent-color:var(--accent)}
+.prog{height:16px;background:var(--card);border:3px solid var(--blue);box-shadow:0 3px 0 var(--blue-2)}
+.prog i{background:repeating-linear-gradient(-45deg,var(--accent) 0 8px,var(--accent-2) 8px 16px)}
+.bar{background:linear-gradient(to top,var(--bg) 55%,transparent)}
+
+/* photos: polaroids with washi tape */
+.photo{position:relative;background:var(--card);border:3px solid var(--blue-2);border-radius:10px;padding:10px 10px 14px;box-shadow:0 8px 0 var(--blue-2),0 22px 34px -22px rgba(47,108,192,.6)}
+.photo::before{content:"";position:absolute;top:-13px;left:50%;width:96px;height:26px;margin-left:-48px;transform:rotate(-4deg);
+  background:color-mix(in srgb,var(--accent) 50%,transparent);border-radius:3px}
+.photo.l::before{background:color-mix(in srgb,var(--blue) 45%,transparent);transform:rotate(3deg)}
+.photo figcaption{font-family:var(--display);font-weight:700;font-size:15px;color:var(--ink)}
 .photo.top{width:min(96%,500px);transform:rotate(1.5deg)}
 .photo.mail{transform:rotate(-1.5deg);width:min(94%,480px)}
+
+/* song */
+.player{border:4px solid var(--blue);box-shadow:0 6px 0 var(--blue-2);background:var(--card)}
+button.player{background:linear-gradient(135deg,var(--blue-2),var(--blue))}
+.np{font-family:var(--display);font-weight:700;color:var(--ink);border:2px solid var(--blue-2)}
+.hitit span{font-family:var(--display);color:var(--accent)}
+.theme{border:2px solid var(--blue);box-shadow:0 3px 0 var(--blue-2)}
+.knob{background:var(--blue)}
+
+/* results */
+.tile,.rep-hero,.receipt,.hq,.words blockquote{border:3px solid var(--blue);border-radius:20px;outline:2px dashed var(--blue-2);outline-offset:-9px;box-shadow:0 6px 0 var(--blue-2)}
+.letter{border:4px solid var(--blue);outline:2px dashed var(--blue-2);outline-offset:-13px;box-shadow:0 8px 0 var(--blue-2)}
+.tag{font-family:var(--display);background:var(--card);color:var(--blue-dk);border:2px solid var(--blue-2)}
+.rep-title,.letter-hi,.words h3,.memories h3,.hq h3,.sure-card h3{font-family:var(--display);font-weight:700}
+.rep-title em,.letter-hi{color:var(--accent)}
 .pop{animation:pop .35s ease}
 @keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.12)}100%{transform:scale(1)}}
 </style>
@@ -382,10 +430,20 @@ input[type=number],textarea.fill,.hq textarea{border-width:2px}
 
 <main class="wrap" id="app">
   <header>
-    <figure class="banner"><img src="hp/header.jpg" alt="Heartopia"></figure>
-    <span class="tag">🏡 Heartopia Town Hall · Official survey</span>
-    <h1>The <em>Allison</em> Survey</h1>
-    <p class="sub">Seventeen quests. Answer honestly. She will see this.</p>
+    <section class="idcard">
+      <span class="ears" aria-hidden="true"><i></i><i></i></span>
+      <span class="stk b1" aria-hidden="true">🎈</span><span class="stk b2" aria-hidden="true">🎈</span>
+      <span class="stk sp" aria-hidden="true">✨</span><span class="stk fl" aria-hidden="true">🌷</span>
+      <span class="badge">SURVEY CARD</span>
+      <h1>The <em>Allison</em> Survey</h1>
+      <ul class="facts">
+        <li>Player: Myles</li>
+        <li>About: <b>Allison</b></li>
+        <li>Quests: 17</li>
+        <li>Honesty: required</li>
+        <li>Read by: her 👀</li>
+      </ul>
+    </section>
     <aside class="dock" aria-label="Our song">
       <div class="hitit" id="hitit" aria-hidden="true">
         <span>PLAY OUR SONG</span>
