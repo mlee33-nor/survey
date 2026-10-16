@@ -4,21 +4,21 @@
 <title>The Allison Survey</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💌</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Nunito:wght@500;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@500;600;700;800&display=swap">
 <style>
 /* Layout: one narrow column of soft question cards, a giant heart score up top, sticky submit */
 :root{
-  --bg:#fff4f6; --card:#ffffff; --ink:#3a1530; --muted:#8a6478;
-  --line:#f3d3dd; --accent:#ff3d71; --accent-2:#ff8fab; --soft:#ffe3ea; --on-accent:#ffffff;
-  --display:"Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
+  --bg:#fff6e6; --card:#fffdf6; --ink:#3b2a1e; --muted:#7d6a58;
+  --line:#ecd9b8; --accent:#ff6f61; --accent-2:#ffab91; --soft:#ffeccc; --on-accent:#ffffff;
+  --display:"Fredoka", "Avenir Next", system-ui, sans-serif;
   --body:"Nunito", "Segoe UI", system-ui, sans-serif;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#1c0f18; --card:#2a1724; --ink:#ffe8ef; --muted:#c79bb0;
-  --line:#3f2335; --accent:#ff5c8a; --accent-2:#ff9db6; --soft:#3a1d2e; --on-accent:#ffffff; color-scheme:dark}}
+  --bg:#16213f; --card:#22305a; --ink:#fff4e4; --muted:#b4bfdc;
+  --line:#34467a; --accent:#ff7f6e; --accent-2:#ffb39e; --soft:#2b3b6b; --on-accent:#ffffff; color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#1c0f18; --card:#2a1724; --ink:#ffe8ef; --muted:#c79bb0;
-  --line:#3f2335; --accent:#ff5c8a; --accent-2:#ff9db6; --soft:#3a1d2e; --on-accent:#ffffff; color-scheme:dark}
+  --bg:#16213f; --card:#22305a; --ink:#fff4e4; --muted:#b4bfdc;
+  --line:#34467a; --accent:#ff7f6e; --accent-2:#ffb39e; --soft:#2b3b6b; --on-accent:#ffffff; color-scheme:dark}
 
 *{box-sizing:border-box}
 html{padding-top:env(safe-area-inset-top,0px)}
@@ -306,6 +306,69 @@ main.wrap{position:relative;z-index:1}
 .report .submit{align-self:center}
 @media (max-width:420px){.tiles{grid-template-columns:1fr}.rep-hero{flex-direction:column;text-align:center}.rep-hero-txt{align-items:center}}
 @media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}.q.inf{animation:quake .3s linear infinite!important}}
+
+/* ===== Heartopia theme ===== */
+:root{--wood:#c48a57;--wood-dk:#8f5a32;--grass:#6cc04a;--grass-dk:#3f8f2a;--sky-1:#8fd3ff;--sky-2:#dff3ff;--cloud:#ffffff}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--wood:#8a6a52;--wood-dk:#4f3a2b;--grass:#4f9e3b;--grass-dk:#2c6420;--sky-1:#0b1530;--sky-2:#1d3264;--cloud:#c9d6ff}}
+:root[data-theme="dark"]{--wood:#8a6a52;--wood-dk:#4f3a2b;--grass:#4f9e3b;--grass-dk:#2c6420;--sky-1:#0b1530;--sky-2:#1d3264;--cloud:#c9d6ff}
+body{background:linear-gradient(180deg,var(--sky-1) 0%,var(--sky-2) 55%,var(--bg) 100%) fixed;background-color:var(--bg)}
+/* clouds instead of blobs */
+.blobs i{background:var(--cloud);border-radius:999px;opacity:.75;height:46px!important}
+.blobs i::before,.blobs i::after{content:"";position:absolute;background:inherit;border-radius:50%}
+.blobs i::before{width:56%;height:150%;left:14%;top:-70%}
+.blobs i::after{width:40%;height:120%;right:12%;top:-45%}
+.blobs i:nth-child(1){width:170px;left:-20px;top:70px}
+.blobs i:nth-child(2){width:130px;top:28%}
+.blobs i:nth-child(3){width:200px;top:62%;opacity:.55}
+.blobs i:nth-child(4){width:110px;bottom:20%}
+.blobs i:nth-child(5){width:90px;top:46%;opacity:.5}
+.blobs::after{content:"";position:absolute;left:-10%;right:-10%;bottom:-60px;height:140px;border-radius:50% 50% 0 0;
+  background:radial-gradient(ellipse at 50% 0,var(--grass),var(--grass-dk));opacity:.9}
+/* stars at night */
+.stars{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0;transition:opacity .6s;
+  background-image:radial-gradient(2px 2px at 12% 18%,#fff,transparent),radial-gradient(1.5px 1.5px at 30% 8%,#fff,transparent),radial-gradient(2px 2px at 55% 22%,#fff,transparent),
+  radial-gradient(1.5px 1.5px at 72% 12%,#fff,transparent),radial-gradient(2px 2px at 88% 30%,#fff,transparent),radial-gradient(1.5px 1.5px at 20% 40%,#fff,transparent),
+  radial-gradient(1.5px 1.5px at 64% 44%,#fff,transparent),radial-gradient(2px 2px at 92% 6%,#fff,transparent),radial-gradient(1.5px 1.5px at 42% 34%,#fff,transparent)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .stars{opacity:.9}}
+:root[data-theme="dark"] .stars{opacity:.9}
+/* banner */
+.banner{margin:0;border-radius:22px;overflow:hidden;border:4px solid var(--card);box-shadow:0 6px 0 var(--wood),0 18px 30px -14px rgba(20,60,110,.5)}
+.banner img{display:block;width:100%;height:auto}
+.tag{background:var(--card);color:var(--ink);border:2px solid var(--wood);box-shadow:0 3px 0 var(--wood)}
+h1{font-weight:700;color:#fff;letter-spacing:.01em;
+  text-shadow:0 3px 0 #2e7fd1,3px 0 0 #2e7fd1,-3px 0 0 #2e7fd1,0 -3px 0 #2e7fd1,2px 2px 0 #2e7fd1,-2px 2px 0 #2e7fd1,2px -2px 0 #2e7fd1,-2px -2px 0 #2e7fd1,0 8px 0 rgba(20,60,110,.25)}
+h1 em{color:#ffd166}
+.sub{color:var(--ink);background:color-mix(in srgb,var(--card) 70%,transparent);align-self:flex-start;padding:4px 12px;border-radius:12px}
+/* quest cards: cream paper in a wooden frame */
+.q{background:var(--card);border:3px solid var(--wood);border-radius:22px;box-shadow:0 6px 0 var(--wood-dk),0 18px 28px -18px rgba(40,30,10,.45)}
+.q.done{border-color:var(--grass);box-shadow:0 6px 0 var(--grass-dk),0 18px 28px -18px rgba(40,30,10,.45)}
+.qhead{flex-direction:column;gap:8px;align-items:flex-start}
+.qn{font-size:12px;letter-spacing:.12em;color:#fff;background:var(--wood);border-radius:8px;padding:3px 10px;box-shadow:0 3px 0 var(--wood-dk);min-width:0}
+.qn::before{content:"QUEST "}
+.q.done .qn{background:var(--grass);box-shadow:0 3px 0 var(--grass-dk)}
+.q.done .qn::after{content:" ✓"}
+.qt{font-size:22px}
+/* chunky game buttons */
+.choice{border:2px solid var(--line);box-shadow:0 4px 0 var(--line);border-radius:14px;background:var(--bg)}
+.choice:hover{transform:translateY(-2px);box-shadow:0 6px 0 var(--line)}
+.choice[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);box-shadow:0 4px 0 color-mix(in srgb,var(--accent) 60%,#000);transform:translateY(0)}
+.submit{background:var(--grass);box-shadow:0 5px 0 var(--grass-dk),0 12px 22px -10px var(--grass-dk);text-shadow:0 1px 0 rgba(0,0,0,.2)}
+.submit:active{transform:translateY(3px);box-shadow:0 2px 0 var(--grass-dk)}
+.ghost{background:var(--card);color:var(--ink);border:2px solid var(--wood);box-shadow:0 3px 0 var(--wood)}
+.step{box-shadow:0 3px 0 var(--line)}
+input[type=number],textarea.fill,.hq textarea{border-width:2px}
+/* stamina-style progress bar */
+.prog{height:16px;background:var(--card);border:3px solid var(--wood);box-shadow:0 3px 0 var(--wood-dk)}
+.prog i{background:linear-gradient(90deg,#ff9e7a,var(--accent))}
+/* photo frames */
+.photo{border:4px solid var(--card);background:var(--card);box-shadow:0 6px 0 var(--wood),0 18px 30px -16px rgba(40,30,10,.5);padding:6px 6px 10px}
+.photo figcaption{color:var(--ink)}
+.tile,.rep-hero,.receipt,.letter,.hq,.words blockquote{border:3px solid var(--wood);box-shadow:0 5px 0 var(--wood-dk)}
+.letter{background:var(--card)}
+.player{border:3px solid var(--wood);box-shadow:0 5px 0 var(--wood-dk)}
+.theme{border:2px solid var(--wood);box-shadow:0 3px 0 var(--wood)}
+.photo.top{width:min(96%,500px);transform:rotate(1.5deg)}
+.photo.mail{transform:rotate(-1.5deg);width:min(94%,480px)}
 .pop{animation:pop .35s ease}
 @keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.12)}100%{transform:scale(1)}}
 </style>
@@ -314,24 +377,28 @@ main.wrap{position:relative;z-index:1}
   <span class="theme-ico sun" aria-hidden="true">☀️</span><span class="theme-ico moon" aria-hidden="true">🌙</span><span class="knob" aria-hidden="true"></span>
 </button>
 
+<div class="stars" aria-hidden="true"></div>
 <div class="blobs" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
 
 <main class="wrap" id="app">
   <header>
-    <span class="tag">Official · Confidential · Very serious</span>
+    <figure class="banner"><img src="hp/header.jpg" alt="Heartopia"></figure>
+    <span class="tag">🏡 Heartopia Town Hall · Official survey</span>
     <h1>The <em>Allison</em> Survey</h1>
-    <p class="sub">Seventeen questions. Answer honestly. She will see this.</p>
+    <p class="sub">Seventeen quests. Answer honestly. She will see this.</p>
     <aside class="dock" aria-label="Our song">
       <div class="hitit" id="hitit" aria-hidden="true">
         <span>PLAY OUR SONG</span>
         <svg viewBox="0 0 90 60" width="78" height="52"><path d="M6 50 C 26 52, 52 46, 70 16" fill="none" stroke="var(--accent)" stroke-width="4" stroke-linecap="round"/><path d="M58 18 L 72 12 L 74 28" fill="none" stroke="var(--accent)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
-      <div class="pcol"><button class="player tap" id="player" type="button" aria-label="Play Kingston by Faye Webster"><span class="bigplay">▶</span></button><p class="np">♪ Kingston · Faye Webster</p></div>
+      <div class="pcol"><button class="player tap" id="player" type="button" aria-label="Play Our Song by Taylor Swift"><span class="bigplay">▶</span></button><p class="np">♪ Our Song · Taylor Swift</p></div>
     </aside>
   </header>
 
 
-  <figure class="photo r"><img src="../img/card.jpg" alt="Heartopia profile card" loading="lazy"></figure>
+  <figure class="photo r top"><img src="hp/top.jpg" alt="Allison's Heartopia profile card: Property of Myles"><figcaption>Player profile: Allison 💙</figcaption></figure>
+  <figure class="photo l mail"><img src="hp/mee.png" alt="Her Heartopia letter: oh my eepy myles, i missed you SOOOO much" loading="lazy"><figcaption>📬 You've got mail from Proud Chungalina</figcaption></figure>
+  <figure class="photo r"><img src="hp/ss3.jpg" alt="The harbor in Heartopia town" loading="lazy"><figcaption>Welcome to town 🏡</figcaption></figure>
   <section class="q" id="q1">
     <div class="qhead"><span class="qn">01</span><h2 class="qt">How much do you like Allison?</h2></div>
     <div class="score">
@@ -359,7 +426,7 @@ main.wrap{position:relative;z-index:1}
     <div class="scale-ends"><span>1 · sour 🍋</span><span>10 · pure sugar 🍬</span></div>
   </section>
 
-  <figure class="photo l"><img src="../img/s1.jpg" alt="Selfie at the boba shop" loading="lazy"></figure>
+  <figure class="photo l"><img src="hp/ss1.jpg" alt="Catching butterflies in a meadow of blue flowers" loading="lazy"><figcaption>Bug catching season 🦋</figcaption></figure>
   <section class="q" data-key="moreDates">
     <div class="qhead"><span class="qn">04</span><h2 class="qt">Would you go on more dates with her?</h2></div>
     <div class="choices"><button class="choice" data-v="Yes" aria-pressed="false">Yes 💕</button><button class="choice" data-v="No" aria-pressed="false">No</button></div>
@@ -392,7 +459,7 @@ main.wrap{position:relative;z-index:1}
   </section>
 
 
-  <figure class="photo l"><img src="../img/s2.jpg" alt="Selfie with a side-eye smile" loading="lazy"></figure>
+  <figure class="photo l"><img src="hp/ss4.jpg" alt="A picnic in a flower garden" loading="lazy"><figcaption>Picnic date? 🧺</figcaption></figure>
     <section class="q" id="qLong">
     <div class="qhead"><span class="qn">09</span><h2 class="qt">How long do you want to date her?</h2></div>
     <div class="howlong"><span class="hl-val" id="longVal">Pick one</span></div>
@@ -405,7 +472,7 @@ main.wrap{position:relative;z-index:1}
     <div class="choices three"><button class="choice" data-v="Unsatisfied" aria-pressed="false">Unsatisfied</button><button class="choice" data-v="Satisfied" aria-pressed="false">Satisfied</button><button class="choice" data-v="Very satisfied" aria-pressed="false">Very satisfied</button></div>
   </section>
 
-  <figure class="photo r"><img src="../img/s3.jpg" alt="Collage from the boba date, including a kiss on the cheek" loading="lazy"></figure>
+  <figure class="photo r"><img src="hp/ss5.jpg" alt="A dream house with a pool and hydrangeas" loading="lazy"><figcaption>Our future house 🏠</figcaption></figure>
 
   <section class="q" data-key="boyfriend">
     <div class="qhead"><span class="qn">11</span><h2 class="qt">Her behavior as a girlfriend</h2></div>
@@ -481,8 +548,8 @@ function playSong(){
   if (songOn) return; songOn = true;
   const box = $('#player');
   const f = document.createElement('iframe');
-  f.src = 'https://www.youtube.com/embed/-5_tGEao_GQ?autoplay=1&loop=1&playlist=-5_tGEao_GQ&playsinline=1&rel=0';
-  f.title = 'Kingston by Faye Webster'; f.allow = 'autoplay; encrypted-media'; f.allowFullscreen = true;
+  f.src = 'https://www.youtube.com/embed/Jb2stN7kH28?autoplay=1&loop=1&playlist=Jb2stN7kH28&playsinline=1&rel=0';
+  f.title = 'Our Song by Taylor Swift'; f.allow = 'autoplay; encrypted-media'; f.allowFullscreen = true;
   box.innerHTML = ''; box.classList.remove('tap'); box.appendChild(f);
   $('#hitit').classList.add('gone');
 }
@@ -510,13 +577,13 @@ document.querySelector('.q[data-key="violence"]').addEventListener('click', e =>
 (function(){
   const root = document.documentElement, btn = $('#theme');
   const isDark = () => root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
-  try { const saved = localStorage.getItem('myles-theme'); if (saved) root.dataset.theme = saved; } catch (e) {}
+  try { const saved = localStorage.getItem('allison-theme'); if (saved) root.dataset.theme = saved; } catch (e) {}
   const sync = () => { const d = isDark(); btn.setAttribute('aria-checked', d); btn.setAttribute('aria-label', d ? 'Switch to light mode' : 'Switch to dark mode'); };
   sync();
   btn.addEventListener('click', () => {
     root.classList.add('theming');
     root.dataset.theme = isDark() ? 'light' : 'dark';
-    try { localStorage.setItem('myles-theme', root.dataset.theme); } catch (e) {}
+    try { localStorage.setItem('allison-theme', root.dataset.theme); } catch (e) {}
     sync();
     clearTimeout(btn._t); btn._t = setTimeout(() => root.classList.remove('theming'), 700);
   });
@@ -661,6 +728,7 @@ async function sendAnswers(row){
 }
 
 const PHOTOS = [
+  ['hp/top.jpg','Her profile'],['hp/mee.png','Her letter 📬'],['hp/ss3.jpg','Welcome to town'],['hp/ss1.jpg','Bug catching'],['hp/ss4.jpg','Picnic'],['hp/ss5.jpg','Dream house'],['hp/ss2.jpg','Dress up'],
   ['../img/card.jpg','The official profile'],['../img/s1.jpg','Hair ruffle incident'],['../img/r1.jpg','Gamer girl focus mode'],
   ['../img/m3.jpg','The window 👀'],['../img/r3.jpg','Breakfast date 🥞'],['../img/m1.jpg','The chase'],['../img/r2.jpg','Cozy and sleepy'],
   ['../img/m2.jpg','The hug'],['../img/s3.jpg','The boba date 🧋'],['../img/s2.jpg','That look']
@@ -678,7 +746,7 @@ function explode(){
   const srcs = PHOTOS.map(p => p[0]);
   const flash = document.createElement('div'); flash.className = 'flash'; layer.appendChild(flash);
   if (!reduceMotion) flash.animate([{opacity:.9, transform:'scale(.2)'},{opacity:0, transform:'scale(3)'}], {duration:700, easing:'ease-out', fill:'forwards'});
-  const spots = [[.12,.14],[.88,.12],[.07,.48],[.93,.45],[.16,.88],[.84,.9],[.5,.06],[.32,.7],[.68,.3],[.5,.95]];
+  const spots = [[.12,.14],[.88,.12],[.07,.48],[.93,.45],[.16,.88],[.84,.9],[.5,.06],[.32,.7],[.68,.3],[.5,.95],[.3,.25],[.7,.62],[.22,.6],[.78,.75],[.5,.5]];
   srcs.forEach((src, i) => {
     const img = document.createElement('img'); img.src = src; img.className = 'shard'; img.alt = '';
     layer.appendChild(img);
@@ -692,7 +760,7 @@ function explode(){
       { transform:end, opacity:1 }
     ], { duration: 1100 + i*90, delay: i*40, easing:'cubic-bezier(.2,.9,.3,1.2)', fill:'forwards' });
   });
-  const bits = ['💖','💋','💕','✨','🍬','🥜','💘','🌷'];
+  const bits = ['💖','🌷','🦋','☁️','🌸','🐟','🍓','🍀','✨','🏡'];
   for (let i = 0; i < (reduceMotion ? 0 : 70); i++) {
     const s = document.createElement('span'); s.className = 'bit'; s.textContent = bits[i % bits.length];
     layer.appendChild(s);
@@ -811,7 +879,7 @@ $('#submit').addEventListener('click', async () => {
   await new Promise(res => setTimeout(res, reduceMotion ? 0 : 900));
   $('#bar').hidden = true;
   window.scrollTo({ top: 0 });
-  const stepsTxt = ['Consulting the Heartopia council…','Measuring nut satisfaction…','Calculating kiss velocity…','Escaping the Backrooms…','Cross-checking sweetness levels…','Finalizing the verdict…'];
+  const stepsTxt = ['Asking the Heartopia town hall…','Measuring nut satisfaction…','Calculating kiss velocity…','Escaping the Backrooms…','Cross-checking sweetness levels…','Finalizing the verdict…'];
   $('#app').innerHTML = `<div class="analyze"><span class="tag">Please wait</span><h2 class="rep-title">Analyzing your answers</h2>
     <div class="abar"><i id="abar"></i></div><ul id="asteps"></ul></div>`;
   for (let i = 0; i < stepsTxt.length; i++) {
