@@ -417,6 +417,19 @@ button.player{background:linear-gradient(135deg,var(--blue-2),var(--blue))}
 .tag{font-family:var(--display);background:var(--card);color:var(--blue-dk);border:2px solid var(--blue-2)}
 .rep-title,.letter-hi,.words h3,.memories h3,.hq h3,.sure-card h3{font-family:var(--display);font-weight:700}
 .rep-title em,.letter-hi{color:var(--accent)}
+/* infinite kisses */
+.q.kinf{border-color:var(--accent);outline-color:var(--accent-2);box-shadow:0 8px 0 var(--accent-2),0 0 0 6px var(--soft),0 0 50px -6px var(--accent)}
+.q.kinf .lips{display:flex;flex-direction:column;align-items:center;gap:8px;padding-top:6px}
+.kiss-heart{width:130px;height:120px;display:block;animation:pump .8s ease-in-out infinite;transform-origin:50% 60%;filter:drop-shadow(0 10px 18px color-mix(in srgb,var(--accent) 60%,transparent))}
+.kiss-heart svg{width:100%;height:100%;display:block}
+.kiss-inf{font-family:var(--display);font-weight:700;font-size:clamp(22px,6vw,30px);letter-spacing:.04em;color:var(--accent);animation:pump .8s ease-in-out infinite}
+/* butterflies */
+.flutter{position:fixed;inset:0;z-index:5;pointer-events:none;overflow:hidden}
+.bf-fly{position:absolute;left:0;top:0;width:calc(34px * var(--s,1));height:calc(34px * var(--s,1));filter:drop-shadow(0 4px 6px rgba(90,74,122,.25))}
+.bf-fly svg{width:100%;height:100%;display:block;overflow:visible}
+.bf-fly .wings{transform-origin:20px 20px;animation:flap .3s ease-in-out infinite alternate}
+@keyframes flap{from{transform:scaleX(1)}to{transform:scaleX(.3)}}
+.stk.bf{right:18px;top:40%;font-size:34px;transform:rotate(-14deg);animation:bob 2.2s ease-in-out infinite}
 .pop{animation:pop .35s ease}
 @keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.12)}100%{transform:scale(1)}}
 </style>
@@ -426,6 +439,7 @@ button.player{background:linear-gradient(135deg,var(--blue-2),var(--blue))}
 </button>
 
 <div class="stars" aria-hidden="true"></div>
+<div class="flutter" id="flutter" aria-hidden="true"></div>
 <div class="blobs" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
 
 <main class="wrap" id="app">
@@ -433,7 +447,7 @@ button.player{background:linear-gradient(135deg,var(--blue-2),var(--blue))}
     <section class="idcard">
       <span class="ears" aria-hidden="true"><i></i><i></i></span>
       <span class="stk b1" aria-hidden="true">🎈</span><span class="stk b2" aria-hidden="true">🎈</span>
-      <span class="stk sp" aria-hidden="true">✨</span><span class="stk fl" aria-hidden="true">🌷</span>
+      <span class="stk sp" aria-hidden="true">✨</span><span class="stk bf" aria-hidden="true">🦋</span><span class="stk fl" aria-hidden="true">🌷</span>
       <span class="badge">SURVEY CARD</span>
       <h1>The <em>Allison</em> Survey</h1>
       <ul class="facts">
@@ -454,9 +468,8 @@ button.player{background:linear-gradient(135deg,var(--blue-2),var(--blue))}
   </header>
 
 
-  <figure class="photo r top"><img src="hp/top.jpg" alt="Allison's Heartopia profile card: Property of Myles"><figcaption>Player profile: Allison 💙</figcaption></figure>
-  <figure class="photo l mail"><img src="hp/mee.png" alt="Her Heartopia letter: oh my eepy myles, i missed you SOOOO much" loading="lazy"><figcaption>📬 You've got mail from Proud Chungalina</figcaption></figure>
-  <figure class="photo r"><img src="hp/ss3.jpg" alt="The harbor in Heartopia town" loading="lazy"><figcaption>Welcome to town 🏡</figcaption></figure>
+  <figure class="photo r top"><img src="hp/top.jpg" alt="Allison's Heartopia profile card: Property of Myles"></figure>
+  <figure class="photo l mail"><img src="hp/mee.png" alt="Her Heartopia letter: oh my eepy myles, i missed you SOOOO much" loading="lazy"></figure>
   <section class="q" id="q1">
     <div class="qhead"><span class="qn">01</span><h2 class="qt">How much do you like Allison?</h2></div>
     <div class="score">
@@ -484,7 +497,6 @@ button.player{background:linear-gradient(135deg,var(--blue-2),var(--blue))}
     <div class="scale-ends"><span>1 · sour 🍋</span><span>10 · pure sugar 🍬</span></div>
   </section>
 
-  <figure class="photo l"><img src="hp/ss1.jpg" alt="Catching butterflies in a meadow of blue flowers" loading="lazy"><figcaption>Bug catching season 🦋</figcaption></figure>
   <section class="q" data-key="moreDates">
     <div class="qhead"><span class="qn">04</span><h2 class="qt">Would you go on more dates with her?</h2></div>
     <div class="choices"><button class="choice" data-v="Yes" aria-pressed="false">Yes 💕</button><button class="choice" data-v="No" aria-pressed="false">No</button></div>
@@ -517,7 +529,6 @@ button.player{background:linear-gradient(135deg,var(--blue-2),var(--blue))}
   </section>
 
 
-  <figure class="photo l"><img src="hp/ss4.jpg" alt="A picnic in a flower garden" loading="lazy"><figcaption>Picnic date? 🧺</figcaption></figure>
     <section class="q" id="qLong">
     <div class="qhead"><span class="qn">09</span><h2 class="qt">How long do you want to date her?</h2></div>
     <div class="howlong"><span class="hl-val" id="longVal">Pick one</span></div>
@@ -530,7 +541,6 @@ button.player{background:linear-gradient(135deg,var(--blue-2),var(--blue))}
     <div class="choices three"><button class="choice" data-v="Unsatisfied" aria-pressed="false">Unsatisfied</button><button class="choice" data-v="Satisfied" aria-pressed="false">Satisfied</button><button class="choice" data-v="Very satisfied" aria-pressed="false">Very satisfied</button></div>
   </section>
 
-  <figure class="photo r"><img src="hp/ss5.jpg" alt="A dream house with a pool and hydrangeas" loading="lazy"><figcaption>Our future house 🏠</figcaption></figure>
 
   <section class="q" data-key="boyfriend">
     <div class="qhead"><span class="qn">11</span><h2 class="qt">Her behavior as a girlfriend</h2></div>
@@ -568,7 +578,7 @@ button.player{background:linear-gradient(135deg,var(--blue-2),var(--blue))}
     <div class="qhead"><span class="qn">17</span><h2 class="qt">If you saw her walking, how many kisses would you give her?</h2></div>
     <div class="kiss">
       <button class="step" id="minus" aria-label="One fewer kiss">−</button>
-      <input type="number" id="kisses" min="0" max="9999" placeholder="?" aria-label="Number of kisses">
+      <input type="number" id="kisses" min="0" placeholder="?" aria-label="Number of kisses">
       <button class="step" id="plus" aria-label="One more kiss">+</button>
       <span class="unit">kisses</span>
     </div>
@@ -666,18 +676,25 @@ document.querySelectorAll('.q[data-key]').forEach(sec => {
   }));
 });
 
+// A huge number of kisses (1000+) turns into infinity with a pumping heart.
+const KISS_INF = 1000;
+let kissN = null;
 function setKiss(v){
-  if (v === '' || v === null) { A.kisses = null; $('#lips').textContent=''; $('#q6').classList.remove('done'); update(); return; }
-  v = Math.max(0, Math.min(9999, Math.round(+v || 0)));
-  A.kisses = v; $('#kisses').value = v;
-  $('#lips').textContent = '💋'.repeat(Math.min(v, 30)) + (v > 30 ? ' +' + (v - 30) : '');
-  $('#q6').classList.add('done'); update();
+  if (v === '' || v === null) { A.kisses = kissN = null; $('#lips').textContent=''; $('#q6').classList.remove('done', 'kinf'); update(); return; }
+  v = Math.max(0, Math.round(+v || 0));
+  const inf = v >= KISS_INF, was = $('#q6').classList.contains('kinf');
+  kissN = v; A.kisses = inf ? '∞' : v; $('#kisses').value = v;
+  if (inf) $('#lips').innerHTML = '<span class="kiss-heart"><svg viewBox="0 0 100 92" aria-hidden="true"><path fill="var(--accent)" d="M50 90C22 70 2 52 2 29 2 13 14 2 28 2c10 0 18 5 22 13C54 7 62 2 72 2c14 0 26 11 26 27 0 23-20 41-48 61z"/></svg></span><span class="kiss-inf">∞ INFINITY KISSES ∞</span>';
+  else $('#lips').textContent = '💋'.repeat(Math.min(v, 30)) + (v > 30 ? ' +' + (v - 30) : '');
+  $('#q6').classList.add('done'); $('#q6').classList.toggle('kinf', inf);
+  if (inf && !was && navigator.vibrate) { try { navigator.vibrate([60,60,60,60,200]); } catch (e) {} }
+  update();
 }
 $('#kisses').addEventListener('input', e => setKiss(e.target.value));
 const zeroKiss = () => { if (A.kisses === 0) areYouSure(() => { setKiss(''); $('#kisses').value = ''; }); };
 $('#kisses').addEventListener('change', zeroKiss);
-$('#plus').addEventListener('click', () => setKiss((A.kisses ?? 0) + 1));
-$('#minus').addEventListener('click', () => { const was = A.kisses; setKiss(Math.max(0, (A.kisses ?? 1) - 1)); if (was !== 0) zeroKiss(); });
+$('#plus').addEventListener('click', () => setKiss((kissN ?? 0) + 1));
+$('#minus').addEventListener('click', () => { const was = A.kisses; setKiss(Math.max(0, (kissN ?? 1) - 1)); if (was !== 0) zeroKiss(); });
 
 ['why','sweetest'].forEach(id => $('#' + id).addEventListener('input', e => {
   A[id] = e.target.value.trim(); e.target.closest('.q').classList.toggle('done', !!A[id]);
@@ -786,12 +803,32 @@ async function sendAnswers(row){
 }
 
 const PHOTOS = [
-  ['hp/top.jpg','Her profile'],['hp/mee.png','Her letter 📬'],['hp/ss3.jpg','Welcome to town'],['hp/ss1.jpg','Bug catching'],['hp/ss4.jpg','Picnic'],['hp/ss5.jpg','Dream house'],['hp/ss2.jpg','Dress up'],
-  ['../img/card.jpg','The official profile'],['../img/s1.jpg','Hair ruffle incident'],['../img/r1.jpg','Gamer girl focus mode'],
+  ['hp/top.jpg','Her profile'],['hp/mee.png','Her letter 📬'],['../img/card.jpg','The official profile'],['../img/s1.jpg','Hair ruffle incident'],['../img/r1.jpg','Gamer girl focus mode'],
   ['../img/m3.jpg','The window 👀'],['../img/r3.jpg','Breakfast date 🥞'],['../img/m1.jpg','The chase'],['../img/r2.jpg','Cozy and sleepy'],
   ['../img/m2.jpg','The hug'],['../img/s3.jpg','The boba date 🧋'],['../img/s2.jpg','That look']
 ];
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+// Little pastel butterflies that wander around the page (she loves butterflies).
+const BF_COLORS = [['#ff8fb8','#ffd1e3'],['#7fb8ff','#cfe5ff'],['#b79bff','#e4d9ff'],['#ffcf5c','#fff0b8']];
+const bfSVG = ([a, b]) => `<svg viewBox="0 0 40 40"><g class="wings">
+  <path d="M20 20C14 6 3 5 4 14c1 6 8 8 16 6z" fill="${a}"/><path d="M20 20C26 6 37 5 36 14c-1 6-8 8-16 6z" fill="${a}"/>
+  <path d="M20 21c-7 1-12 5-10 10 2 4 8 2 10-10z" fill="${b}"/><path d="M20 21c7 1 12 5 10 10-2 4-8 2-10-10z" fill="${b}"/>
+  <circle cx="11" cy="13" r="2.2" fill="#fff" opacity=".75"/><circle cx="29" cy="13" r="2.2" fill="#fff" opacity=".75"/></g>
+  <rect x="19" y="13" width="2" height="16" rx="1" fill="#5a4a7a"/><path d="M20 13c-1-4-3-6-5-7M20 13c1-4 3-6 5-7" stroke="#5a4a7a" stroke-width="1.2" fill="none" stroke-linecap="round"/></svg>`;
+function butterfly(layer, x, y){
+  const b = document.createElement('span'); b.className = 'bf-fly';
+  b.innerHTML = bfSVG(BF_COLORS[Math.floor(Math.random() * BF_COLORS.length)]);
+  b.style.setProperty('--s', (0.75 + Math.random() * 0.6).toFixed(2));
+  b.querySelector('.wings').style.animationDuration = (0.22 + Math.random() * 0.15).toFixed(2) + 's';
+  layer.appendChild(b);
+  const W = innerWidth, H = innerHeight, pts = [[x ?? Math.random() * W, y ?? Math.random() * H]];
+  for (let k = 0; k < 5; k++) pts.push([Math.random() * (W - 40), Math.random() * (H - 40)]);
+  if (reduceMotion) { b.style.transform = `translate(${pts[0][0]}px,${pts[0][1]}px)`; return b; }
+  b.animate(pts.map(([px, py], k) => ({ transform: `translate(${px}px,${py}px) rotate(${k % 2 ? 10 : -10}deg)` })),
+    { duration: 16000 + Math.random() * 12000, iterations: Infinity, direction: 'alternate', easing: 'ease-in-out' });
+  return b;
+}
+(function(){ const layer = $('#flutter'); for (let i = 0; i < 9; i++) butterfly(layer); })();
 const rnd = (a, b) => a + Math.random() * (b - a);
 
 // Photos burst out of the button, spin across the screen, then settle as a collage behind the report.
@@ -818,7 +855,7 @@ function explode(){
       { transform:end, opacity:1 }
     ], { duration: 1100 + i*90, delay: i*40, easing:'cubic-bezier(.2,.9,.3,1.2)', fill:'forwards' });
   });
-  const bits = ['💖','🌷','🦋','☁️','🌸','🐟','🍓','🍀','✨','🏡'];
+  const bits = ['🦋','💖','🦋','🌷','🦋','🌸','🦋','✨','🍓','🦋'];
   for (let i = 0; i < (reduceMotion ? 0 : 70); i++) {
     const s = document.createElement('span'); s.className = 'bit'; s.textContent = bits[i % bits.length];
     layer.appendChild(s);
@@ -853,7 +890,8 @@ const NOTE = {
 const yesNote = (k, v) => (v === 'Yes' ? NOTE.yes : NOTE.no)[k];
 function report(r, saved){
   const inf = r.howLong.includes('INFINITY');
-  const lips = '💋'.repeat(Math.min(r.kisses, 24)) + (r.kisses > 24 ? ` +${r.kisses - 24}` : '');
+  const kInf = r.kisses === '∞';
+  const lips = kInf ? '💋'.repeat(24) + ' ∞' : '💋'.repeat(Math.min(r.kisses, 24)) + (r.kisses > 24 ? ` +${r.kisses - 24}` : '');
   return `<div class="report">
     <span class="tag">Official results · ${esc(new Date(r.at).toLocaleDateString())}</span>
     <h2 class="rep-title">The verdict:<br><em>${verdict(r)}</em></h2>
@@ -870,7 +908,7 @@ function report(r, saved){
     <div class="tiles">
       <section class="tile"><span class="lbl">Sweetness</span><strong>${r.sweetness} / 10</strong>
         <div class="candy">${Array.from({length:10}, (_, k) => `<span class="${k < r.sweetness ? 'on' : ''}">🍬</span>`).join('')}</div></section>
-      <section class="tile"><span class="lbl">Kisses on sight</span><strong>${r.kisses}</strong><div class="lipline">${lips || '🫥'}</div></section>
+      <section class="tile ${kInf ? 'inf' : ''}"><span class="lbl">Kisses on sight</span><strong ${kInf ? 'class="howlong-big"' : ''}>${r.kisses}</strong><div class="lipline">${lips || '🫥'}</div></section>
       <section class="tile"><span class="lbl">More dates?</span>${yn(r.moreDates)}<span class="sweet">${yesNote('moreDates', r.moreDates)}</span></section>
       <section class="tile"><span class="lbl">Heartopia duo?</span>${yn(r.heartopia)}<span class="sweet">${yesNote('heartopia', r.heartopia)}</span></section>
       <section class="tile"><span class="lbl">Escape the Backrooms together?</span>${yn(r.backrooms)}<span class="sweet">${yesNote('backrooms', r.backrooms)}</span></section>
